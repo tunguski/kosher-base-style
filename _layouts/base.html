@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ project.name }} - {{ page.title }}</title>
+
+  <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="css/main.css">
+  <link rel="stylesheet" type="text/css" href="css/highlight.css">
+</head>
+<body>
+
+<header class="main-header">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4">
+
+        <!--<button type="button" class="navbar-toggle collapsed">-->
+          <!--<span class="sr-only">Toggle navigation</span>-->
+          <!--<span class="icon-bar"></span>-->
+          <!--<span class="icon-bar"></span>-->
+          <!--<span class="icon-bar"></span>-->
+        <!--</button>-->
+
+        <h3 class="comment"><a href="/">{{ project.name }}</a></h3>
+      </div>
+      <div class="col-md-8 col-lg-6">
+        <h3><span>{{ page.title }}</span></h3>
+      </div>
+    </div>
+  </div>
+</header>
+
+<header class="menu-header">
+  <div class="container">
+    <div class="row">
+      {% include {{page.subheader}} %}
+    </div>
+  </div>
+</header>
+
+<div class="container page-presentation">
+  <div class="row">
+    {% if page.left_column %}
+    <div class="col-sm-12 col-md-4 col-lg-4 page-menu">
+      {% include {{page.left_column}} %}
+    </div>
+    {% endif %}
+    {% if page.left_column %}
+    <div class="col-sm-12 col-md-8 col-lg-8 project-description">
+      {{ content }}
+    </div>
+    {% else %}
+    <div class="col-md-12 project-description">
+      {{ content }}
+    </div>
+    {% endif %}
+  </div>
+</div>
+
+<footer>
+  <div class="container visible-sm visible-xs">
+    <div class="row">
+      <div class="col-md-12">
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
