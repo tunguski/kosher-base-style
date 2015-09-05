@@ -42,19 +42,19 @@
 
 <div class="container page-presentation">
   <div class="row">
-    {{# page.left_column }}
+    {{# left_column }}
     <div class="col-sm-12 col-md-4 col-lg-4 page-menu">
-      {{#renderPartial}}page.left_column{{/renderPartial}}
+      {{#renderPartial}}left_column{{/renderPartial}}
     </div>
     <div class="col-sm-12 col-md-8 col-lg-8 project-description">
       {{ content }}
     </div>
-    {{/ page.left_column }}
-    {{^ page.left_column }}
+    {{/ left_column }}
+    {{^ left_column }}
     <div class="col-md-12 project-description">
       {{ content }}
     </div>
-    {{/ page.left_column }}
+    {{/ left_column }}
   </div>
 </div>
 
