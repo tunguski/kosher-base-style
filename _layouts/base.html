@@ -35,7 +35,7 @@
 <header class="menu-header">
   <div class="container">
     <div class="row">
-      {{#renderPartial page.subheader }}
+      {{#renderPartial}}page.subheader{{/renderPartial}}
     </div>
   </div>
 </header>
@@ -44,7 +44,7 @@
   <div class="row">
     {{# page.left_column }}
     <div class="col-sm-12 col-md-4 col-lg-4 page-menu">
-      {{#renderPartial page.left_column }}
+      {{#renderPartial}}page.left_column{{/renderPartial}}
     </div>
     <div class="col-sm-12 col-md-8 col-lg-8 project-description">
       {{ content }}
