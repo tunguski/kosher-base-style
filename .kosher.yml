@@ -3,4 +3,4 @@ site:
   highlighter: pygments
 
   # default layout
-  layout: two_column.html
+  layout: two_column
