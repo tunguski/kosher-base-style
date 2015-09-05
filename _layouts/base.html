@@ -35,27 +35,26 @@
 <header class="menu-header">
   <div class="container">
     <div class="row">
-      {% include {{page.subheader}} %}
+      {{#renderPartial page.subheader }}
     </div>
   </div>
 </header>
 
 <div class="container page-presentation">
   <div class="row">
-    {% if page.left_column %}
+    {{# page.left_column }}
     <div class="col-sm-12 col-md-4 col-lg-4 page-menu">
-      {% include {{page.left_column}} %}
+      {{#renderPartial page.left_column }}
     </div>
-    {% endif %}
-    {% if page.left_column %}
     <div class="col-sm-12 col-md-8 col-lg-8 project-description">
       {{ content }}
     </div>
-    {% else %}
+    {{/ page.left_column }}
+    {{^ page.left_column }}
     <div class="col-md-12 project-description">
       {{ content }}
     </div>
-    {% endif %}
+    {{/ page.left_column }}
   </div>
 </div>
 
