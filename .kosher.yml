@@ -1,0 +1,8 @@
+site:
+  # set to github default
+  highlighter: pygments
+
+  # default page configuration
+  page:
+    # default layout
+    layout: two_column.html
