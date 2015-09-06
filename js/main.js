@@ -2,6 +2,8 @@ angular.module('kosherBaseApp', ['ui.bootstrap'])
 
 
     .controller('AppCtrl', function($scope, $http, $window) {
+      $scope.commit = 'unknown';
+
       $http.get('/s/' + $window.location.pathname.split('/').splice(0, 4).join('/')).
           then(function(response) {
             $scope.commit = response.data;
