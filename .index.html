@@ -9,7 +9,7 @@
   <link rel="stylesheet" type="text/css" href="css/main.css">
   <link rel="stylesheet" type="text/css" href="css/highlight.css">
 </head>
-<body>
+<body ng-controller="AppCtrl">
 
 <header class="main-header">
   <div class="container">
@@ -104,9 +104,6 @@
   window.base_mustache = '';
 </script>
 <script type="text/javascript" src="js/main.js"></script>
-
-
-<h4 class="no-break">Found columns: {{ columns.length }}</h4><ol><li ng-repeat="col in columns"><b><span ng-bind="col.name"></span></b><input type="checkbox" class="pull-right" ng-model="col.visible" ng-click="switchVisibility($index)"></li></ol>
 
 </body>
 </html>

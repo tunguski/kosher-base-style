@@ -1,11 +1,11 @@
 angular.module('kosherBaseApp', ['ui.bootstrap'])
 
 
-    .controller('AppCtrl', function($scope) {
-      $scope.customer = {
-        name: 'Naomi',
-        address: '1600 Amphitheatre'
-      };
+    .controller('AppCtrl', function($scope, $http, $location) {
+      $http.get('/s/' + $location.path()).
+          then(function(response) {
+            $scope.commit = response.data;
+          });
     })
 
 
