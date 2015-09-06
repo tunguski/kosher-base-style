@@ -1,4 +1,8 @@
 
+.nav, .pagination, .carousel, .panel-title a {
+  cursor: pointer;
+}
+
 .clickable {
   cursor: pointer;
 }
@@ -262,4 +266,8 @@ ul ul li {
 .project-description > table > thead > tr > th {
   border-bottom: 2px solid #eee;
   padding: 10px;
+}
+
+.no-break {
+  white-space: nowrap;
 }
