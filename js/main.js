@@ -61,10 +61,9 @@ angular.module('kosherBaseApp', ['ui.bootstrap'])
           'popover-template="\'template/table-search-popover.html\'">' +
           '<i class="glyphicon glyphicon-cog"></i></button></div></div></form>');
 
-      $templateCache.put('xtemplate/table-search-popover.html', '<script type="text/ng-template" ' +
-          'id="template/table-search-popover.html"><h4 class="no-break">Found columns: {{ columns.length }}</h4>' +
+      $templateCache.put('template/table-search-popover.html', '<h4 class="no-break">Found columns: {{ columns.length }}</h4>' +
           '<ol><li ng-repeat="col in columns"><b><span ng-bind="col.name"></span></b><input type="checkbox" ' +
-          'class="pull-right" ng-model="col.visible" ng-click="switchVisibility($index)"></li></ol></script>');
+          'class="pull-right" ng-model="col.visible" ng-click="switchVisibility($index)"></li></ol>');
 
       $templateCache.put('template/xxx.html', '');
     })
