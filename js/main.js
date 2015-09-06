@@ -15,6 +15,10 @@ angular.module('kosherBaseApp', ['ui.bootstrap'])
       return {
         restrict: 'E',
         link: function (scope, element, attrs) {
+          if (!element.parent().hasClass('project-description')) {
+            return;
+          }
+
           scope.query = '';
 
           scope.clearQuery = function () {
