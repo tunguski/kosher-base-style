@@ -35,8 +35,7 @@
 <header class="menu-header">
   <div class="container">
     <div class="row">
-      {{#someFunctions}}page.subheader{{/someFunctions}}
-      {{#someFunctions2}}page.subheader{{/someFunctions2}}
+      {{#renderDynamic}}page.subheader{{/renderDynamic}}
     </div>
   </div>
 </header>
@@ -45,7 +44,7 @@
   <div class="row">
     {{# left_column }}
     <div class="col-sm-12 col-md-4 col-lg-4 page-menu">
-      {{#renderPartial}}left_column{{/renderPartial}}
+      {{#renderDynamic}}left_column{{/renderDynamic}}
     </div>
     <div class="col-sm-12 col-md-8 col-lg-8 project-description">
       {{ content }}
