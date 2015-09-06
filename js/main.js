@@ -11,6 +11,7 @@ angular.module('kosherBaseApp', ['ui.bootstrap'])
             $http.get('/s/' + commitResponse.data.replace(/"/g, '')).
                 then(function(buildResponse) {
                   $scope.build = buildResponse.data;
+                  $scope.buildTime = moment(buildResponse.data.buildStart).fromNow();
                 });
           });
     })
@@ -60,6 +61,11 @@ angular.module('kosherBaseApp', ['ui.bootstrap'])
           element.before(btn);
         }
       };
+    })
+
+
+    .run(function() {
+      moment.locale('pl_PL');
     })
 
 
