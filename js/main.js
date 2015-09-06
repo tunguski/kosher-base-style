@@ -5,8 +5,13 @@ angular.module('kosherBaseApp', ['ui.bootstrap'])
       $scope.commit = 'unknown';
 
       $http.get('/s/' + $window.location.pathname.split('/').splice(0, 4).join('/')).
-          then(function(response) {
-            $scope.commit = response.data;
+          then(function(commitResponse) {
+            $scope.commit = commitResponse.data;
+
+            $http.get('/s/' + commitResponse.data.replace(/"/g, '')).
+                then(function(buildResponse) {
+                  $scope.build = buildResponse.data;
+                });
           });
     })
 
