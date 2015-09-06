@@ -64,8 +64,8 @@ angular.module('kosherBaseApp', ['ui.bootstrap'])
     })
 
 
-    .run(function() {
-      moment.locale('pl_PL');
+    .run(function($window) {
+      moment.locale($window.navigator.userLanguage || $window.navigator.language);
     })
 
 
