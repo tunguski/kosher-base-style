@@ -271,3 +271,7 @@ ul ul li {
 .no-break {
   white-space: nowrap;
 }
+
+.text-right {
+  text-align: right;
+}
