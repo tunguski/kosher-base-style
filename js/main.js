@@ -14,6 +14,16 @@ angular.module('kosherBaseApp', ['ui.bootstrap'])
                   $scope.buildTime = moment(buildResponse.data.buildStart).fromNow();
                 });
           });
+
+
+      $scope.scrollToTop = function () {
+        $('html, body').animate({ scrollTop: 0 }, 100);
+      };
+
+
+      $scope.toggleFullWindow = function () {
+        $scope.fullWindow = !$scope.fullWindow;
+      };
     })
 
 

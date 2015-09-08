@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{{ project.name }} - {{ page.title }}</title>
 
+  <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
   <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="{{base}}css/highlight.css">
   <link rel="stylesheet" type="text/css" href="{{base}}css/main.css">
@@ -13,7 +14,7 @@
 <body ng-controller="AppCtrl">
 
 <header class="main-header">
-  <div class="container">
+  <div class="container" ng-class="fullWindow ? 'container-fluid' : 'container'">
     <div class="row">
       <div class="col-md-4">
 
@@ -34,14 +35,14 @@
 </header>
 
 <header class="menu-header">
-  <div class="container">
+  <div class="container" ng-class="fullWindow ? 'container-fluid' : 'container'">
     <div class="row">
       {{#renderDynamic}}subheader{{/renderDynamic}}
     </div>
   </div>
 </header>
 
-<div class="container page-presentation">
+<div class="container page-presentation" ng-class="fullWindow ? 'container-fluid' : 'container'">
   <div class="row">
     {{# left_column }}
     <div class="col-sm-12 col-md-4 col-lg-4 page-menu">
@@ -60,7 +61,7 @@
 </div>
 
 <footer>
-  <div class="container">
+  <div class="container" ng-class="fullWindow ? 'container-fluid' : 'container'">
     <div class="row">
       <div class="col-md-12">
         <div class="pull-right comment">
@@ -72,6 +73,14 @@
   </div>
 </footer>
 
+
+<div class="toggle-full-window" ng-click="toggleFullWindow()">
+  <i class="glyphicon" ng-class="fullWindow ? 'glyphicon-resize-small' : 'glyphicon-resize-full'"></i>
+</div>
+
+<div class="scroll-to-top" ng-click="scrollToTop()">
+  <i class="glyphicon glyphicon-arrow-up"></i>
+</div>
 
 
 <!-- javascript -->
