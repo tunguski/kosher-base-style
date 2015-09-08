@@ -21,7 +21,9 @@ angular.module('kosherBaseApp', ['ui.bootstrap'])
       return {
         restrict: 'E',
         link: function (scope, element, attrs) {
-          if (!element.parent().hasClass('project-description')) {
+          if (!element.parent().hasClass('project-description') ||
+              element.find('tbody tr:first-child td').length < 8 ||
+              element.find('tbody tr').length < 16) {
             return;
           }
 
