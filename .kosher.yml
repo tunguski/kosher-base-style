@@ -1,6 +1,4 @@
-site:
-  # set to github default
-  highlighter: pygments
-
-  # default layout
-  layout: two_column
+# set to github default
+highlighter: pygments
+# default layout
+layout: two_column
