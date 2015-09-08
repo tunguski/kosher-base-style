@@ -74,6 +74,18 @@
 </footer>
 
 
+<a ng-href="showHistory()">
+  <div class="show-history" ng-click="">
+    <i class="fa fa-history"></i>
+  </div>
+</a>
+
+<a ng-href="blame()">
+  <div class="blame">
+    <i class="fa fa-eye"></i>
+  </div>
+</a>
+
 <div class="toggle-full-window" ng-click="toggleFullWindow()">
   <i class="glyphicon" ng-class="fullWindow ? 'glyphicon-resize-small' : 'glyphicon-resize-full'"></i>
 </div>
@@ -97,6 +109,7 @@
 <!-- custom -->
 <script type="text/javascript">
   window.base_mustache = '{{base}}';
+  window.base_gitlab = '{{base_gitlab}}';
 </script>
 <script type="text/javascript" src="{{base}}js/main.js"></script>
 <script type="text/javascript" src="{{base}}js/custom.js"></script>

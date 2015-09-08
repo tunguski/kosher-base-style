@@ -15,14 +15,28 @@ angular.module('kosherBaseApp', ['ui.bootstrap'])
                 });
           });
 
-
       $scope.scrollToTop = function () {
         $('html, body').animate({ scrollTop: 0 }, 100);
       };
 
-
       $scope.toggleFullWindow = function () {
         $scope.fullWindow = !$scope.fullWindow;
+      };
+
+      $scope.showHistory = function () {
+        var path = window.location.pathname;
+        // /root/base-listener/commits/master/LICENSE
+        var root = path.split('/').slice(0,3).join('/');
+        var rest = path.split('/').slice(3).join('/');
+        return [ root, "commits", rest].join('/')
+      };
+
+      $scope.blame = function () {
+        var path = window.location.pathname;
+        // http://localhost:10080/root/base-listener/blame/master/LICENSE
+        var root = path.split('/').slice(0,3).join('/');
+        var rest = path.split('/').slice(3).join('/');
+        return [ root, "blame", rest].join('/')
       };
     })
 
