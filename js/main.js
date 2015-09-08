@@ -28,7 +28,7 @@ angular.module('kosherBaseApp', ['ui.bootstrap'])
         // /root/base-listener/commits/master/LICENSE
         var root = path.split('/').slice(0,3).join('/');
         var rest = path.split('/').slice(3).join('/');
-        return [ root, "commits", rest].join('/')
+        return [ window.base_gitlab, root, "commits", rest].join('/');
       };
 
       $scope.blame = function () {
@@ -36,7 +36,7 @@ angular.module('kosherBaseApp', ['ui.bootstrap'])
         // http://localhost:10080/root/base-listener/blame/master/LICENSE
         var root = path.split('/').slice(0,3).join('/');
         var rest = path.split('/').slice(3).join('/');
-        return [ root, "blame", rest].join('/')
+        return [ window.base_gitlab, root, "blame", rest].join('/');
       };
     })
 
