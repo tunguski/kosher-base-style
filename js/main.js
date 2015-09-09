@@ -119,7 +119,7 @@ angular.module('kosherBaseApp', ['ui.bootstrap'])
             var words = JSON.parse(response.data);
 
             angular.forEach(words, function (href, word) {
-              if (href.indexOf('/') > 0 && href.indexOf('://') > 0) {
+              if (href.indexOf('/') > 0 && href.indexOf('://') < 0) {
                 href = window.base_mustache + href;
               }
 
