@@ -31,6 +31,10 @@ blockquote {
   font-size: 13px;
 }
 
+img {
+  max-width: 100%;
+}
+
 .page-presentation .panel {
   text-align: center;
   cursor: pointer;
@@ -277,9 +281,9 @@ ul ul li {
 }
 
 
-/* scroll-to-top */
+/* bottom-icon-function */
 
-.scroll-to-top {
+.bottom-icon-function {
   position: fixed;
   bottom: 10px;
   right: 10px;
@@ -291,79 +295,36 @@ ul ul li {
   transition: all .5s ease;
 }
 
-.scroll-to-top:hover {
+.bottom-icon-function:hover {
   opacity: .5;
 }
 
-.scroll-to-top i {
+.bottom-icon-function i {
   font-size: 32px;
 }
 
+/* scroll-to-top */
 
 /* toggle-full-window */
 
 .toggle-full-window {
-  position: fixed;
-  bottom: 10px;
   right: 70px;
-  background-color: #eee;
-  opacity: .3;
-  width: 50px;
-  height: 50px;
-  padding: 7px 10px 10px 7px;
-  transition: all .5s ease;
 }
-
-.toggle-full-window:hover {
-  opacity: .5;
-}
-
-.toggle-full-window i {
-  font-size: 32px;
-}
-
 
 /* show-history-abs */
 
 .show-history-abs {
-  position: fixed;
-  bottom: 10px;
   right: 130px;
-  background-color: #eee;
-  opacity: .3;
-  width: 50px;
-  height: 50px;
-  padding: 7px 10px 10px 7px;
-  transition: all .5s ease;
 }
-
-.show-history-abs:hover {
-  opacity: .5;
-}
-
-.show-history-abs i {
-  font-size: 32px;
-}
-
 
 /* blame-abs */
 
 .blame-abs {
-  position: fixed;
-  bottom: 10px;
   right: 190px;
-  background-color: #eee;
-  opacity: .3;
-  width: 50px;
-  height: 50px;
-  padding: 7px 10px 10px 7px;
-  transition: all .5s ease;
 }
 
-.blame-abs:hover {
-  opacity: .5;
-}
+/* go-to-edit */
 
-.blame-abs i {
-  font-size: 32px;
+.go-to-edit {
+  right: 190px;
 }

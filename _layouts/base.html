@@ -74,23 +74,29 @@
 </footer>
 
 
-<!--<a ng-href="{{ showHistory() }}">-->
-  <!--<div class="show-history-abs">-->
-    <!--<i class="fa fa-history"></i>-->
-  <!--</div>-->
-<!--</a>-->
+<a ng-href="{{ goToEdit() }}">
+  <div class="bottom-icon-function go-to-edit">
+    <i class="fa fa-edit"></i>
+  </div>
+</a>
 
-<!--<a ng-href="{{ blame() }}">-->
-  <!--<div class="blame-abs">-->
-    <!--<i class="fa fa-eye"></i>-->
-  <!--</div>-->
-<!--</a>-->
+<a ng-href="{{ showHistory() }}">
+  <div class="bottom-icon-function show-history-abs">
+    <i class="fa fa-history"></i>
+  </div>
+</a>
 
-<div class="toggle-full-window" ng-click="toggleFullWindow()">
+<a ng-href="{{ blame() }}">
+  <div class="bottom-icon-function blame-abs">
+    <i class="fa fa-eye"></i>
+  </div>
+</a>
+
+<div class="bottom-icon-function toggle-full-window" ng-click="toggleFullWindow()">
   <i class="glyphicon" ng-class="fullWindow ? 'glyphicon-resize-small' : 'glyphicon-resize-full'"></i>
 </div>
 
-<div class="scroll-to-top" ng-click="scrollToTop()">
+<div class="bottom-icon-function scroll-to-top" ng-click="scrollToTop()">
   <i class="glyphicon glyphicon-arrow-up"></i>
 </div>
 
