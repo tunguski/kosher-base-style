@@ -116,7 +116,7 @@ angular.module('kosherBaseApp', ['ui.bootstrap'])
         restrict: 'E',
         link: function (scope, element, attrs) {
           $http.get(window.base_mustache + 'autoreferences.json').then(function (response) {
-            var words = response.data;
+            var words = JSON.parse(response.data);
 
             angular.forEach(words, function (href, word) {
               if (href.indexOf('/') > 0 && href.indexOf('://') > 0) {
