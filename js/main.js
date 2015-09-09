@@ -16,7 +16,7 @@ angular.module('kosherBaseApp', ['ui.bootstrap'])
           $scope.xsdImports = $($scope.xsd).find('import');
           $scope.xsdComplexTypes = $($scope.xsd).find('complexType');
 
-          $('.project-description').append('<ng-include src="../template/xsd.html"></ng-include>');
+          $('.project-description').append('<ng-include src="\'../template/xsd.html\'"></ng-include>');
         });
       }
     })
