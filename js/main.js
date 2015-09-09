@@ -10,6 +10,13 @@ angular.module('kosherBaseApp', ['ui.bootstrap'])
         $http.get($window.location.pathname.replace(/\.html/, '.xsd')).then(function (response) {
           $scope.xsdData = response.data;
           $scope.xsd = $.parseXML(response.data);
+
+          $scope.xsdElements = $($scope.xsd).find('element');
+          $scope.xsdGroups = $($scope.xsd).find('group');
+          $scope.xsdImports = $($scope.xsd).find('import');
+          $scope.xsdComplexTypes = $($scope.xsd).find('complexType');
+
+          $('.project-description').append('<ng-include src="../template/xsd.html"></ng-include>');
         });
       }
     })
