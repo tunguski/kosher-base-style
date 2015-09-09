@@ -1,22 +1,26 @@
 <div>
   <h2>Imports</h2>
   <ul class="list-group">
-    <li class="list-group-item" ng-repeat="xsdImport in xsdImports" ng-bind="xsdImport.name"></li>
+    <li class="list-group-item" ng-repeat="xsdImport in xsdImports"
+        ng-bind="xsdImport.attributes['namespace'].value"></li>
   </ul>
 
   <h2>Types</h2>
   <ul class="list-group">
-    <li class="list-group-item" ng-repeat="xsdComplexType in xsdComplexTypes" ng-bind="xsdComplexType.name"></li>
+    <li class="list-group-item" ng-repeat="xsdComplexType in xsdComplexTypes"
+        ng-bind="xsdComplexType.attributes['name'].value"></li>
   </ul>
 
   <h2>Elements</h2>
   <ul class="list-group">
-    <li class="list-group-item" ng-repeat="xsdElement in xsdElements" ng-bind="xsdElement.name"></li>
+    <li class="list-group-item" ng-repeat="xsdElement in xsdElements"
+        ng-bind="xsdElement.attributes['name'].value"></li>
   </ul>
 
   <h2>Groups</h2>
   <ul class="list-group">
-    <li class="list-group-item" ng-repeat="xsdGroup in xsdGroups" ng-bind="xsdGroup.name"></li>
+    <li class="list-group-item" ng-repeat="xsdGroup in xsdGroups"
+        ng-bind="xsdGroup.attributes['name'].value"></li>
   </ul>
 
 </div>
