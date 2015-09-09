@@ -128,9 +128,7 @@ angular.module('kosherBaseApp', ['ui.bootstrap'])
 
               angular.forEach(elementsWithWord, function (elementWithWord) {
                 var text = $(elementWithWord).text();
-                debugger;
                 var result = text.replace(new RegExp(word, "g"), function (replacement) {
-                  debugger;
                   return "<a href='" + href + "'>" + word + "</a>";
                 });
 
