@@ -48,12 +48,12 @@
     <div class="col-sm-12 col-md-4 col-lg-4 page-menu">
       {{#renderDynamic}}left_column{{/renderDynamic}}
     </div>
-    <div class="col-sm-12 col-md-8 col-lg-8 project-description">
+    <div class="col-sm-12 col-md-8 col-lg-8 project-description" ng-controller="ContentCtrl">
       {{ content }}
     </div>
     {{/ left_column }}
     {{^ left_column }}
-    <div class="col-md-12 project-description">
+    <div class="col-md-12 project-description" ng-controller="ContentCtrl">
       {{ content }}
     </div>
     {{/ left_column }}

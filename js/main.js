@@ -1,6 +1,20 @@
 angular.module('kosherBaseApp', ['ui.bootstrap'])
 
 
+    .controller('ContentCtrl', function($scope, $window, $http) {
+      // ok, now on start if there is no content
+      if (!$('.project-description').children().length) {
+        // try to guess what page should be shown
+
+        // check for xsd file
+        $http.get($window.location.pathname.replace(/\.html/, '.xsd')).then(function (response) {
+          $scope.xsdData = response.data;
+          $scope.xsd = $.parseXML(response.data);
+        });
+      }
+    })
+
+
     .controller('AppCtrl', function($scope, $http, $window) {
       $scope.commit = 'unknown';
 
