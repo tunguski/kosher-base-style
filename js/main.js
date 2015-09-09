@@ -111,6 +111,38 @@ angular.module('kosherBaseApp', ['ui.bootstrap'])
     })
 
 
+    .directive('body', function($http) {
+      return {
+        restrict: 'E',
+        link: function (scope, element, attrs) {
+          $http.get(window.base_mustache + 'autoreferences.json').then(function (response) {
+            var words = response.data;
+
+            angular.forEach(words, function (href, word) {
+              if (href.indexOf('/') > 0 && href.indexOf('://') > 0) {
+                href = window.base_mustache + href;
+              }
+
+              var elementsWithWord = $("div :contains(" + word + ")")
+                  .filter(function(){ return $(this).children().length === 0; });
+
+              angular.forEach(elementsWithWord, function (elementWithWord) {
+                var text = $(elementWithWord).text();
+                debugger;
+                var result = text.replace(new RegExp(word, "g"), function (replacement) {
+                  debugger;
+                  return "<a href='" + href + "'>" + word + "</a>";
+                });
+
+                $(elementWithWord).html(result);
+              });
+            });
+          });
+        }
+      };
+    })
+
+
     .run(function($window) {
       moment.locale($window.navigator.userLanguage || $window.navigator.language);
     })
