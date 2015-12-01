@@ -44,6 +44,14 @@ angular.module('kosherBaseApp', ['ui.bootstrap'])
         $scope.fullWindow = !$scope.fullWindow;
       };
 
+      $scope.goToEdit = function () {
+        var path = window.location.pathname;
+        // http://localhost:10080/root/base-listener/blame/master/LICENSE
+        var root = path.split('/').slice(0,3).join('/');
+        var rest = path.split('/').slice(3).join('/');
+        return [ window.base_gitlab, root, "blob", rest].join('/');
+      };
+
       $scope.showHistory = function () {
         var path = window.location.pathname;
         // /root/base-listener/commits/master/LICENSE
