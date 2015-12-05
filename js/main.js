@@ -49,7 +49,7 @@ angular.module('kosherBaseApp', ['ui.bootstrap'])
         // http://localhost:10080/root/base-listener/blame/master/LICENSE
         var root = path.split('/').slice(0,3).join('/');
         var rest = path.split('/').slice(3).join('/');
-        return [ window.base_gitlab, root, "blob", rest].join('/');
+        return [ window.base_gitlab, root, "blob", rest].join('/').replace('.html', '.md');
       };
 
       $scope.showHistory = function () {
@@ -57,7 +57,7 @@ angular.module('kosherBaseApp', ['ui.bootstrap'])
         // /root/base-listener/commits/master/LICENSE
         var root = path.split('/').slice(0,3).join('/');
         var rest = path.split('/').slice(3).join('/');
-        return [ window.base_gitlab, root, "commits", rest].join('/');
+        return [ window.base_gitlab, root, "commits", rest].join('/').replace('.html', '.md');
       };
 
       $scope.blame = function () {
@@ -65,7 +65,7 @@ angular.module('kosherBaseApp', ['ui.bootstrap'])
         // http://localhost:10080/root/base-listener/blame/master/LICENSE
         var root = path.split('/').slice(0,3).join('/');
         var rest = path.split('/').slice(3).join('/');
-        return [ window.base_gitlab, root, "blame", rest].join('/');
+        return [ window.base_gitlab, root, "blame", rest].join('/').replace('.html', '.md');
       };
     })
 
