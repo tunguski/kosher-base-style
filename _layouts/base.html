@@ -44,7 +44,7 @@
 
 <div class="container page-presentation" ng-class="fullWindow ? 'container-fluid' : 'container'">
   <div class="row">
-    {{# left_column }}
+    {% if left_column %}
     <div class="col-sm-12 col-md-4 col-lg-4 page-menu">
       {% include {{ left_column }} %}
     </div>
@@ -52,13 +52,12 @@
       <ng-include src="contentUrl"></ng-include>
       {{ content }}
     </div>
-    {{/ left_column }}
-    {{^ left_column }}
+    {% else %}
     <div class="col-md-12 project-description" ng-controller="ContentCtrl">
       <ng-include src="contentUrl"></ng-include>
       {{ content }}
     </div>
-    {{/ left_column }}
+    {% endif %}
   </div>
 </div>
 

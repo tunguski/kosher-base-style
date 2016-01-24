@@ -1,7 +1,7 @@
 <div class="container">
-  <div class="row {{^ left_column }}menu-border{{/ left_column }}">
+  <div class="row {% if !left_column %}menu-border{% elseif %}">
     <div class="col-md-4"></div>
-    <div class="col-md-8 col-lg-8 {{# left_column }}menu-border{{/ left_column }}">
+    <div class="col-md-8 col-lg-8 {% if left_column %}menu-border{% elseif %}">
       <h4><a href="{{base}}index.html">Docs</a></h4>
       <h4><a href="{{base}}code_stats.html">Code Stats</a></h4>
     </div>
