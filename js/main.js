@@ -198,7 +198,7 @@ angular.module('kosherBaseApp', ['ui.bootstrap'])
           };
 
           scope.showFullIssue = function (issue) {
-            // todo: show issue.description - it is markdown with gitlab specifi elements
+            // todo: show issue.description - it is markdown with gitlab specific elements
             scope.selectedIssueData = issue.description;
           };
 
