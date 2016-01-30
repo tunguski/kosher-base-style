@@ -2,12 +2,12 @@
 <table class="table">
   <thead>
     <tr>
-      <th ng-repeat="col in columns" ng-bind="col"></th>
+      <th ng-repeat="col in columns" ng-bind="headerText(col)"></th>
     </tr>
   </thead>
   <tbody>
     <tr ng-repeat="issue in issues">
-      <td ng-repeat="col in columns" ng-bind="fieldValue(issue, col)"></td>
+      <td ng-repeat="col in columns" ng-bind="formatColumnData(col, fieldValue(issue, col))"></td>
     </tr>
   </tbody>
 </table>

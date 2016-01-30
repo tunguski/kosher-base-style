@@ -160,6 +160,33 @@ angular.module('kosherBaseApp', ['ui.bootstrap'])
         link: function (scope, element, attrs) {
           var sources = element.find('source');
 
+          scope.columnDefinitions = {
+            title: {
+
+            },
+            created_at: {
+              format: function (value) {
+                return moment(value).format('YYYY-MM-DD HH:mm:ss');
+              }
+            }
+          };
+
+          scope.formatColumnData = function (columnName, value) {
+            if (scope.columnDefinitions[columnName] && scope.columnDefinitions[columnName].format) {
+              return scope.columnDefinitions[columnName].format(value);
+            } else {
+              return value;
+            }
+          };
+
+          scope.headerText = function (columnName) {
+            if (scope.columnDefinitions[columnName] && scope.columnDefinitions[columnName].title) {
+              return scope.columnDefinitions[columnName].title;
+            } else {
+              return columnName;
+            }
+          };
+
           scope.columns = [
             'title',
             'state',
