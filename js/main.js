@@ -174,7 +174,7 @@ angular.module('kosherBaseApp', ['ui.bootstrap'])
               title: 'Autor'
             },
             created_at: {
-              title: 'Created At',
+              title: 'Data otwarcia',
               format: function (value) {
                 return moment(value).format('YYYY-MM-DD HH:mm:ss');
               }
