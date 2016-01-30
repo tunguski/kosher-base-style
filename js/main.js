@@ -162,9 +162,19 @@ angular.module('kosherBaseApp', ['ui.bootstrap'])
 
           scope.columnDefinitions = {
             title: {
-
+              title: 'Opis'
+            },
+            state: {
+              title: 'Status'
+            },
+            labels: {
+              title: 'Etykiety'
+            },
+            'author.name': {
+              title: 'Autor'
             },
             created_at: {
+              title: 'Created At',
               format: function (value) {
                 return moment(value).format('YYYY-MM-DD HH:mm:ss');
               }
