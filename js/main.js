@@ -153,7 +153,7 @@ angular.module('kosherBaseApp', ['ui.bootstrap'])
       return {
         restrict: 'E',
         transclude: true,
-        templateUrl: '../template/issuesList.html',
+        templateUrl: 'template/issuesList.html',
         link: function (scope, element, attrs) {
           var sources = element.find('source');
 
