@@ -37,7 +37,7 @@
 <header class="menu-header">
   <div class="container" ng-class="fullWindow ? 'container-fluid' : 'container'">
     <div class="row">
-      {% include {{ subheader }} %}
+      {{#renderDynamic}}subheader{{/renderDynamic}}
     </div>
   </div>
 </header>
@@ -46,7 +46,7 @@
   <div class="row">
     {{# left_column }}
     <div class="col-sm-12 col-md-4 col-lg-4 page-menu">
-      {% include {{ left_column }} %}
+      {{#renderDynamic}}left_column{{/renderDynamic}}
     </div>
     <div class="col-sm-12 col-md-8 col-lg-8 project-description" ng-controller="ContentCtrl">
       <ng-include src="contentUrl"></ng-include>
