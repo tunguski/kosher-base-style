@@ -197,6 +197,20 @@ angular.module('kosherBaseApp', ['ui.bootstrap'])
             }
           };
 
+          scope.showFullIssue = function (issue) {
+            // todo: show issue.description - it is markdown with gitlab specifi elements
+            scope.selectedIssueData = issue.description;
+          };
+
+          scope.showDiscussion = function (issue) {
+            $http.get('/gl/projects/' + issue.project_id + '/' + issue.id + '/notes').then(function (response) {
+              var notes = JSON.parse(response.data);
+              issue.notes = notes;
+              // todo: show issue.notes
+              scope.selectedIssueData = notes;
+            });
+          };
+
           scope.columns = [
             'title',
             'state',

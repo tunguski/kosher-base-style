@@ -8,6 +8,18 @@
   <tbody>
     <tr ng-repeat="issue in issues">
       <td ng-repeat="col in columns" ng-bind="formatColumnData(col, fieldValue(issue, col))"></td>
+      <!--
+      functions:
+        - show conversation
+        - show full body
+      -->
+      <td>
+        <a ng-click="showDiscussion(issue)"><i class="fa fa-comments-o"></i></a>
+        <a ng-click="showFullIssue(issue)"><i class="fa fa-ellipsis-h"></i></a>
+      </td>
     </tr>
   </tbody>
 </table>
+<div ng-bind-html="selectedIssueData">
+
+</div>
