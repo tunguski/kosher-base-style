@@ -1,0 +1,71 @@
+
+<!DOCTYPE html>
+<html lang="en" ng-app="kosherBaseApp">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>base-listener - root - base-listener - master</title>
+
+  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="../css/highlight.css">
+  <link rel="stylesheet" type="text/css" href="../css/main.css">
+  <link rel="stylesheet" type="text/css" href="../css/custom.css">
+</head>
+<body ng-controller="AppCtrl">
+
+<div class="container">
+  <h1>Issues</h1>
+
+  <h2>Base</h2>
+
+  <issues-list>
+    <source src="tunguski/kosher">
+  </issues-list>
+
+  <h2>Label</h2>
+
+  <issues-list>
+    <source src="tunguski/kosher" labels="feature">
+  </issues-list>
+
+  <h2>Milestone</h2>
+
+  <issues-list>
+    <source src="tunguski/kosher" milestone="1.0">
+  </issues-list>
+
+  <h2>Two sources</h2>
+
+  <issues-list>
+    <source src="tunguski/kosher" label="feature">
+    <source src="tunguski/kosher" label="improvement">
+  </issues-list>
+
+  <h2>Different projects</h2>
+
+  <issues-list>
+    <source src="tunguski/kosher" label="feature">
+    <source src="tunguski/additional" label="improvement">
+  </issues-list>
+</div>
+
+<!-- javascript -->
+
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/4.0.0/lodash.min.js"></script>
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular-sanitize.min.js"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/1.1.0/ui-bootstrap-tpls.min.js"></script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/highlight.js/9.1.0/highlight.min.js"></script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/highlight.js/9.1.0/languages/1c.min.js"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.1/moment-with-locales.min.js"></script>
+
+<!-- custom -->
+<script type="text/javascript">
+  window.base_mustache = '';
+</script>
+<script type="text/javascript" src="../js/main.js"></script>
+<script type="text/javascript" src="../js/custom.js"></script>
+
+</body>
+</html>

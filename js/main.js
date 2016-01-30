@@ -149,6 +149,44 @@ angular.module('kosherBaseApp', ['ui.bootstrap'])
     })
 
 
+    .directive('issuesList', function($http) {
+      return {
+        restrict: 'E',
+        transclude: true,
+        templateUrl: '../template/issuesList.html',
+        link: function (scope, element, attrs) {
+          var sources = element.find('source');
+
+          scope.columns = [
+            'title',
+            'state',
+            'created_at',
+            'labels',
+            'author.name'
+          ];
+
+          scope.issues = [];
+
+          function loadIssues () {
+            angular.forEach(sources, function (source) {
+              $http.get(window.base_mustache + source.src + '/issues').then(function (response) {
+                angular.forEach(JSON.parse(response.data), function (issue) {
+                  scope.issues.push(issue);
+                });
+              });
+            });
+          }
+
+          loadIssues();
+
+          scope.fieldValue = function (issue, path) {
+            return Object.byString(issue, path);
+          };
+        }
+      };
+    })
+
+
     .run(function($window) {
       moment.locale($window.navigator.userLanguage || $window.navigator.language);
     })
@@ -171,3 +209,20 @@ angular.module('kosherBaseApp', ['ui.bootstrap'])
     })
 
 ;
+
+
+// recursive property getter function
+Object.byString = function(o, s) {
+  s = s.replace(/\[(\w+)\]/g, '.$1'); // convert indexes to properties
+  s = s.replace(/^\./, '');           // strip a leading dot
+  var a = s.split('.');
+  for (var i = 0, n = a.length; i < n; ++i) {
+    var k = a[i];
+    if (k in o) {
+      o = o[k];
+    } else {
+      return;
+    }
+  }
+  return o;
+};
