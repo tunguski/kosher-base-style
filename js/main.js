@@ -169,7 +169,7 @@ angular.module('kosherBaseApp', ['ui.bootstrap'])
 
           function loadIssues () {
             angular.forEach(sources, function (source) {
-              $http.get(window.base_mustache + 'gl/projects/' + source.attributes.src.value + '/issues').then(function (response) {
+              $http.get('/gl/projects/' + source.attributes.src.value + '/issues').then(function (response) {
                 angular.forEach(JSON.parse(response.data), function (issue) {
                   scope.issues.push(issue);
                 });
