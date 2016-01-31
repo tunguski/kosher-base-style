@@ -193,9 +193,9 @@ angular.module('kosherBaseApp', ['ui.bootstrap'])
           scope.formatColumnData = function (columnName, issue) {
             var data = scope.columnDefinitions[columnName] && scope.columnDefinitions[columnName].format
                 ? scope.columnDefinitions[columnName].format(issue)
-                : Object.byString(issue, columnName);
+                : '' + Object.byString(issue, columnName);
 
-            return angular.isDefined(data) ? $sce.trustAsHtml(data) : null;
+            return $sce.trustAsHtml(data);
           };
 
           scope.headerText = function (columnName) {
