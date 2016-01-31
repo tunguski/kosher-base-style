@@ -233,9 +233,9 @@ angular.module('kosherBaseApp', ['ui.bootstrap'])
           function loadIssues () {
             angular.forEach(sources, function (source) {
               $http.get('/gl/projects/' + source.attributes.src.value + '/issues?'
-                  + (source.attributes.labels ? 'labels=' + source.attributes.labels.value : '')
-                  + (source.attributes.status ? 'status=' + source.attributes.status.value : '')
-                  + (source.attributes.milestone ? '&milestone=' + source.attributes.milestone.value : '')
+                  + (source.attributes.labels ? 'labels=' + source.attributes.labels.value + '&' : '')
+                  + (source.attributes.status ? 'status=' + source.attributes.status.value + '&' : '')
+                  + (source.attributes.milestone ? '&milestone=' + source.attributes.milestone.value + '&' : '')
               ).then(function (response) {
                 angular.forEach(JSON.parse(response.data), function (issue) {
                   scope.issues.push(issue);
