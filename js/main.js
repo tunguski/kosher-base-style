@@ -191,11 +191,11 @@ angular.module('kosherBaseApp', ['ui.bootstrap'])
           };
 
           scope.formatColumnData = function (columnName, issue) {
-            if (scope.columnDefinitions[columnName] && scope.columnDefinitions[columnName].format) {
-              return $sce.trustAsHtml(scope.columnDefinitions[columnName].format(issue));
-            } else {
-              return $sce.trustAsHtml(Object.byString(issue, columnName));
-            }
+            var data = scope.columnDefinitions[columnName] && scope.columnDefinitions[columnName].format
+                ? scope.columnDefinitions[columnName].format(issue)
+                : Object.byString(issue, columnName);
+
+            return angular.defined(data) ? $sce.trustAsHtml(data) : null;
           };
 
           scope.headerText = function (columnName) {
