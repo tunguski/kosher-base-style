@@ -194,7 +194,7 @@ angular.module('kosherBaseApp', ['ui.bootstrap'])
             if (scope.columnDefinitions[columnName] && scope.columnDefinitions[columnName].format) {
               return $sce.trustAsHtml(scope.columnDefinitions[columnName].format(issue));
             } else {
-              return fieldValue(issue, col);
+              return Object.byString(issue, col);
             }
           };
 
@@ -247,10 +247,6 @@ angular.module('kosherBaseApp', ['ui.bootstrap'])
           }
 
           loadIssues();
-
-          scope.fieldValue = function (issue, path) {
-            return Object.byString(issue, path);
-          };
         }
       };
     })
