@@ -149,7 +149,7 @@ angular.module('kosherBaseApp', ['ui.bootstrap'])
     })
 
 
-    .directive('issuesList', function($http) {
+    .directive('issuesList', function($http, $filter) {
       return {
         restrict: 'E',
         transclude: true,
@@ -211,6 +211,14 @@ angular.module('kosherBaseApp', ['ui.bootstrap'])
             });
           };
 
+          scope.issueRowStyle = function (issue) {
+            if (issue.state === 'closed') {
+              return 'issue-closed';
+            }
+
+            return '';
+          };
+
           scope.columns = [
             'title',
             'state',
@@ -230,6 +238,8 @@ angular.module('kosherBaseApp', ['ui.bootstrap'])
                 angular.forEach(JSON.parse(response.data), function (issue) {
                   scope.issues.push(issue);
                 });
+
+                scope.issues = $filter('orderBy')(scope.issues, 'state', true);
               });
             });
           }

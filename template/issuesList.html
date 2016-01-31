@@ -3,10 +3,11 @@
   <thead>
     <tr>
       <th ng-repeat="col in columns" ng-bind="headerText(col)"></th>
+      <th><!-- functions --></th>
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="issue in issues">
+    <tr ng-repeat="issue in issues" ng-class="issueRowStyle(issue)">
       <td ng-repeat="col in columns" ng-bind="formatColumnData(col, fieldValue(issue, col))"></td>
       <!--
       functions:
