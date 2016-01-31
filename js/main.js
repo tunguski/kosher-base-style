@@ -177,7 +177,14 @@ angular.module('kosherBaseApp', ['ui.bootstrap'])
               title: 'Status'
             },
             labels: {
-              title: 'Etykiety'
+              title: 'Etykiety',
+              format: function (issue) {
+                var result = '';
+                angular.forEach(issue.labels, function (label) {
+                  result += '<span class="label label-info">' + label + '</span>';
+                });
+                return result;
+              }
             },
             'author.name': {
               title: 'Autor'
