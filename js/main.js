@@ -159,8 +159,17 @@ angular.module('kosherBaseApp', ['ui.bootstrap'])
         templateUrl: 'template/issuesList.html',
         link: function (scope, element, attrs) {
           var sources = element.find('source');
+          scope.columns = attrs.columns ? attrs.columns.value.split(',')
+              : [ 'title', 'state', 'created_at', 'labels', 'author.name' ];
 
           scope.columnDefinitions = {
+            id: {
+              title: '',
+              format: function (issue) {
+                return '<a href="' + window.base_gitlab + '/'
+                    + window.gitlab_project.full_name + '/' + issue.id + '">#' + issue.id + '</a>';
+              }
+            },
             title: {
               title: 'Opis'
             },
@@ -213,19 +222,11 @@ angular.module('kosherBaseApp', ['ui.bootstrap'])
 
           scope.issueRowStyle = function (issue) {
             if (issue.state === 'closed') {
-              return 'issue-closed';
+              return 'text-muted';
             }
 
             return '';
           };
-
-          scope.columns = [
-            'title',
-            'state',
-            'created_at',
-            'labels',
-            'author.name'
-          ];
 
           scope.issues = [];
 
@@ -233,6 +234,7 @@ angular.module('kosherBaseApp', ['ui.bootstrap'])
             angular.forEach(sources, function (source) {
               $http.get('/gl/projects/' + source.attributes.src.value + '/issues?'
                   + (source.attributes.labels ? 'labels=' + source.attributes.labels.value : '')
+                  + (source.attributes.status ? 'status=' + source.attributes.status.value : '')
                   + (source.attributes.milestone ? '&milestone=' + source.attributes.milestone.value : '')
               ).then(function (response) {
                 angular.forEach(JSON.parse(response.data), function (issue) {

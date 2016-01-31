@@ -118,6 +118,11 @@
 <script type="text/javascript">
   window.base_mustache = '{{base}}';
   window.base_gitlab = '{{base_gitlab}}';
+  window.gitlab_project = {
+    user: '{{project.user}}',
+    project: '{{project.name}}',
+    full_name: '{{project.user}}/{{project.name}}'
+  };
 </script>
 <script type="text/javascript" src="{{base}}js/main.js"></script>
 <script type="text/javascript" src="{{base}}js/custom.js"></script>
