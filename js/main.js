@@ -194,7 +194,7 @@ angular.module('kosherBaseApp', ['ui.bootstrap'])
             if (scope.columnDefinitions[columnName] && scope.columnDefinitions[columnName].format) {
               return $sce.trustAsHtml(scope.columnDefinitions[columnName].format(issue));
             } else {
-              return Object.byString(issue, col);
+              return Object.byString(issue, columnName);
             }
           };
 
