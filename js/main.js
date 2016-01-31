@@ -203,7 +203,7 @@ angular.module('kosherBaseApp', ['ui.bootstrap'])
           };
 
           scope.showDiscussion = function (issue) {
-            $http.get('/gl/projects/' + issue.project_id + '/' + issue.id + '/notes').then(function (response) {
+            $http.get('/gl/projects/' + issue.project_id + '/issues/' + issue.id + '/notes').then(function (response) {
               var notes = JSON.parse(response.data);
               issue.notes = notes;
               // todo: show issue.notes
