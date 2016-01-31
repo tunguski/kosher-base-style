@@ -167,7 +167,7 @@ angular.module('kosherBaseApp', ['ui.bootstrap'])
               title: '',
               format: function (issue) {
                 return '<a href="' + window.base_gitlab + '/'
-                    + window.gitlab_project.full_name + '/issues/' + issue.id + '">#' + issue.id + '</a>';
+                    + window.gitlab_project.full_name + '/issues/' + issue.iid + '">#' + issue.iid + '</a>';
               }
             },
             title: {
