@@ -159,7 +159,7 @@ angular.module('kosherBaseApp', ['ui.bootstrap'])
         templateUrl: 'template/issuesList.html',
         link: function (scope, element, attrs) {
           var sources = element.find('source');
-          scope.columns = attrs.columns ? attrs.columns.value.split(',')
+          scope.columns = attrs.columns ? _.map(attrs.columns.split(','), _.trim)
               : [ 'title', 'state', 'created_at', 'labels', 'author.name' ];
 
           scope.columnDefinitions = {
