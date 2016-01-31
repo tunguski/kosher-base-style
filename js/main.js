@@ -149,7 +149,7 @@ angular.module('kosherBaseApp', ['ui.bootstrap'])
     })
 
 
-    .directive('issuesList', function($http, $filter) {
+    .directive('issuesList', function($http, $filter, $sce) {
       return {
         restrict: 'E',
         transclude: true,
@@ -184,17 +184,17 @@ angular.module('kosherBaseApp', ['ui.bootstrap'])
             },
             created_at: {
               title: 'Data otwarcia',
-              format: function (value) {
-                return moment(value).format('YYYY-MM-DD HH:mm:ss');
+              format: function (issue) {
+                return moment(issue.created_at).format('YYYY-MM-DD HH:mm:ss');
               }
             }
           };
 
-          scope.formatColumnData = function (columnName, value) {
+          scope.formatColumnData = function (columnName, issue) {
             if (scope.columnDefinitions[columnName] && scope.columnDefinitions[columnName].format) {
-              return scope.columnDefinitions[columnName].format(value);
+              return $sce.trustAsHtml(scope.columnDefinitions[columnName].format(issue));
             } else {
-              return value;
+              return fieldValue(issue, col);
             }
           };
 

@@ -8,7 +8,7 @@
   </thead>
   <tbody>
     <tr ng-repeat="issue in issues" ng-class="issueRowStyle(issue)">
-      <td ng-repeat="col in columns" ng-bind-html="formatColumnData(col, fieldValue(issue, col))"></td>
+      <td ng-repeat="col in columns" ng-bind-html="formatColumnData(col, issue)"></td>
       <!--
       functions:
         - show conversation
