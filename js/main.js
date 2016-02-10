@@ -215,8 +215,7 @@ angular.module('kosherBaseApp', ['ui.bootstrap', 'btford.markdown'])
 
           scope.showFullIssue = function (issue) {
             scope.issue = issue;
-            // todo: show issue.description - it is markdown with gitlab specific elements
-            scope.selectedIssueData = $sce.trustAsHtml('<div btf-markdown="issue.description"></div>');
+            scope.selectedIssueData = 'description';
           };
 
           scope.showDiscussion = function (issue) {
@@ -225,7 +224,7 @@ angular.module('kosherBaseApp', ['ui.bootstrap', 'btford.markdown'])
               var notes = JSON.parse(response.data);
               issue.notes = notes;
               // todo: show issue.notes
-              scope.selectedIssueData = $sce.trustAsHtml('<div ng-bind="issue.notes"></div>');
+              scope.selectedIssueData = 'notes';
             });
           };
 

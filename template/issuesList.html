@@ -21,4 +21,8 @@
     </tr>
   </tbody>
 </table>
-<div ng-bind-html="selectedIssueData"></div>
+<div ng-if="selectedIssueData == 'description'" btf-markdown="issue.description"></div>
+<div ng-if="selectedIssueData == 'notes'">
+  <div ng-repeat="note in issue.notes" ng-bind="note.body">
+  </div>
+</div>
