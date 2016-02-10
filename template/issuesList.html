@@ -20,7 +20,7 @@
       </td>
     </tr>
     <tr ng-repeat-end ng-if="selectedIssueData && selectedIssue == issue">
-      <td colspan="{{ columns.length }}">
+      <td colspan="{{ columns.length + 1 }}">
         <div ng-if="selectedIssueData == 'description'" btf-markdown="issue.description"></div>
         <div ng-if="selectedIssueData == 'notes'">
           <ul class="list-group">
