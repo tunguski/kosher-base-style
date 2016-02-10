@@ -214,16 +214,18 @@ angular.module('kosherBaseApp', ['ui.bootstrap'])
           };
 
           scope.showFullIssue = function (issue) {
+            scope.issue = issue;
             // todo: show issue.description - it is markdown with gitlab specific elements
-            scope.selectedIssueData = issue.description;
+            scope.selectedIssueData = $sce.trustAsHtml('<div btf-markdown="issue.description"></div>');
           };
 
           scope.showDiscussion = function (issue) {
+            scope.issue = issue;
             $http.get('/gl/projects/' + issue.project_id + '/issues/' + issue.id + '/notes').then(function (response) {
               var notes = JSON.parse(response.data);
               issue.notes = notes;
               // todo: show issue.notes
-              scope.selectedIssueData = notes;
+              scope.selectedIssueData = $sce.trustAsHtml('<div ng-bind="issue.notes"></div>');
             });
           };
 
