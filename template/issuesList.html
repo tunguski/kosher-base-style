@@ -23,6 +23,9 @@
 </table>
 <div ng-if="selectedIssueData == 'description'" btf-markdown="issue.description"></div>
 <div ng-if="selectedIssueData == 'notes'">
-  <div ng-repeat="note in issue.notes" ng-bind="note.body">
-  </div>
+  <ul class="list-group">
+    <li ng-repeat="note in issue.notes" class="list-group-item">
+      <span ng-bind="note.body"></span>
+    </li>
+  </ul>
 </div>
