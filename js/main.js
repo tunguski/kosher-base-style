@@ -214,7 +214,7 @@ angular.module('kosherBaseApp', ['ui.bootstrap', 'btford.markdown'])
           };
 
           scope.showFullIssue = function (issue) {
-            if (scope.selectedIssueData !== 'description' && scope.selectedIssue !== issue) {
+            if (scope.selectedIssueData !== 'description' || scope.selectedIssue !== issue) {
               scope.selectedIssue = issue;
               scope.selectedIssueData = 'description';
             } else {
@@ -223,7 +223,7 @@ angular.module('kosherBaseApp', ['ui.bootstrap', 'btford.markdown'])
           };
 
           scope.showDiscussion = function (issue) {
-            if (scope.selectedIssueData !== 'notes' && scope.selectedIssue !== issue) {
+            if (scope.selectedIssueData !== 'notes' || scope.selectedIssue !== issue) {
               scope.selectedIssue = issue;
               scope.selectedIssueData = 'notes';
 
