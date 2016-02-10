@@ -214,17 +214,17 @@ angular.module('kosherBaseApp', ['ui.bootstrap', 'btford.markdown'])
           };
 
           scope.showFullIssue = function (issue) {
-            scope.issue = issue;
+            scope.selectedIssue = issue;
             scope.selectedIssueData = 'description';
           };
 
           scope.showDiscussion = function (issue) {
-            scope.issue = issue;
+            scope.selectedIssue = issue;
+            scope.selectedIssueData = 'notes';
+
             $http.get('/gl/projects/' + issue.project_id + '/issues/' + issue.id + '/notes').then(function (response) {
               var notes = JSON.parse(response.data);
               issue.notes = notes;
-              // todo: show issue.notes
-              scope.selectedIssueData = 'notes';
             });
           };
 

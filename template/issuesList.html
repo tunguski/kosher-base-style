@@ -7,7 +7,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="issue in issues" ng-class="issueRowStyle(issue)">
+    <tr ng-repeat-start="issue in issues" ng-class="issueRowStyle(issue)">
       <td ng-repeat="col in columns" ng-bind-html="formatColumnData(col, issue)"></td>
       <!--
       functions:
@@ -19,13 +19,17 @@
         <a ng-click="showFullIssue(issue)"><i class="fa fa-ellipsis-h"></i></a>
       </td>
     </tr>
+    <tr ng-repeat-end ng-if="selectedIssueData && selectedIssue == issue">
+      <td colspan="{{ columns.length }}">
+        <div ng-if="selectedIssueData == 'description'" btf-markdown="issue.description"></div>
+        <div ng-if="selectedIssueData == 'notes'">
+          <ul class="list-group">
+            <li ng-repeat="note in issue.notes" class="list-group-item">
+              <span ng-bind="note.body"></span>
+            </li>
+          </ul>
+        </div>
+      </td>
+    </tr>
   </tbody>
 </table>
-<div ng-if="selectedIssueData == 'description'" btf-markdown="issue.description"></div>
-<div ng-if="selectedIssueData == 'notes'">
-  <ul class="list-group">
-    <li ng-repeat="note in issue.notes" class="list-group-item">
-      <span ng-bind="note.body"></span>
-    </li>
-  </ul>
-</div>

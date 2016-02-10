@@ -155,7 +155,7 @@ li {
   padding-bottom: 10px;
 }
 
-li:last-child {
+li:not(.list-group-item):last-child {
   padding-bottom: 0;
 }
 
