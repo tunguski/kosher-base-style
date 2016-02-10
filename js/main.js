@@ -214,18 +214,26 @@ angular.module('kosherBaseApp', ['ui.bootstrap', 'btford.markdown'])
           };
 
           scope.showFullIssue = function (issue) {
-            scope.selectedIssue = issue;
-            scope.selectedIssueData = 'description';
+            if (scope.selectedIssueData !== 'description' && scope.selectedIssue !== issue) {
+              scope.selectedIssue = issue;
+              scope.selectedIssueData = 'description';
+            } else {
+              scope.selectedIssueData = undefined;
+            }
           };
 
           scope.showDiscussion = function (issue) {
-            scope.selectedIssue = issue;
-            scope.selectedIssueData = 'notes';
+            if (scope.selectedIssueData !== 'notes' && scope.selectedIssue !== issue) {
+              scope.selectedIssue = issue;
+              scope.selectedIssueData = 'notes';
 
-            $http.get('/gl/projects/' + issue.project_id + '/issues/' + issue.id + '/notes').then(function (response) {
-              var notes = JSON.parse(response.data);
-              issue.notes = notes;
-            });
+              $http.get('/gl/projects/' + issue.project_id + '/issues/' + issue.id + '/notes').then(function (response) {
+                var notes = JSON.parse(response.data);
+                issue.notes = notes;
+              });
+            } else {
+              scope.selectedIssueData = undefined;
+            }
           };
 
           scope.issueRowStyle = function (issue) {
