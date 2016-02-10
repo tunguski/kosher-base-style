@@ -1,4 +1,4 @@
-angular.module('kosherBaseApp', ['ui.bootstrap'])
+angular.module('kosherBaseApp', ['ui.bootstrap', 'btford.markdown'])
 
 
     .controller('ContentCtrl', function($scope, $window, $http) {
