@@ -149,13 +149,49 @@ angular.module('kosherBaseApp', ['ui.bootstrap', 'btford.markdown'])
     })
 
 
+    .factory('gitlab', function ($http) {
+      return {
+        milestones: function (project) {
+          return $http.get('/gl/projects/' + project + '/milestones');
+        },
+        milestone: function (project, id) {
+          return $http.get('/gl/projects/' + project + '/milestones/' + id);
+        },
+        issues: function (project, parameters) {
+          // add parameters to request url
+          return $http.get('/gl/projects/' + project + '/issues/');
+        },
+        issueNotes: function (project, id) {
+          return $http.get('/gl/projects/' + project + '/issues/' + issue.id + '/notes');
+        }
+      };
+    })
+
+
+    .directive('milestonesList', function($http, $filter, $sce, gitlab) {
+      return {
+        restrict: 'E',
+        transclude: true,
+        scope: {},
+        templateUrl: 'template/milestonesList.html',
+        link: function (scope, element, attrs) {
+          function loadMilestones () {
+            gitlab.milestones(source.attributes.src.value).then(function (response) {
+              scope.milestones = JSON.parse(response.data);
+            });
+          }
+
+          loadMilestones();
+        }
+      };
+    })
+
+
     .directive('issuesList', function($http, $filter, $sce) {
       return {
         restrict: 'E',
         transclude: true,
-        scope: {
-
-        },
+        scope: {},
         templateUrl: 'template/issuesList.html',
         link: function (scope, element, attrs) {
           var sources = element.find('source');
@@ -227,7 +263,7 @@ angular.module('kosherBaseApp', ['ui.bootstrap', 'btford.markdown'])
               scope.selectedIssue = issue;
               scope.selectedIssueData = 'notes';
 
-              $http.get('/gl/projects/' + issue.project_id + '/issues/' + issue.id + '/notes').then(function (response) {
+              gitlab.issueNotes(issue.project_id, issue.id).then(function (response) {
                 var notes = JSON.parse(response.data);
                 issue.notes = notes;
               });
