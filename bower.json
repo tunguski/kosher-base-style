@@ -1,0 +1,33 @@
+{
+  "name": "kosher-base-style",
+  "version": "0.1.0",
+  "authors": [
+    "Marek Romanowski <marek.romanowski@gmail.com>"
+  ],
+  "description": "Kosher Base Style",
+  "keywords": [
+    ""
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "sample"
+  ],
+  "dependencies": {
+    "jquery": "^1.12.0",
+    "angular": ">=1.5.0",
+    "angular-animate": ">=1.5.0",
+    "angular-sanitize": ">=1.5.0",
+    "lodash": "^4.5.0",
+    "angular-ui-bootstrap-bower": "^1.1.2",
+    "moment": "^2.11.2"
+  },
+  "devDependencies": {
+    "angular-mocks": ">=1.5.0"
+  },
+  "appPath": "."
+}
