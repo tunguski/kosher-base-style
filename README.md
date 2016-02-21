@@ -8,3 +8,5 @@ Before running dev server setup proxy settings for your gitlab server:
 * ```SERVER_PORT``` - port on server (default: 80)
 
 Run ```grunt serve``` to start local web server.
+
+```index.html``` basically is test page for Kosher Base Style

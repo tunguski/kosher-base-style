@@ -176,7 +176,7 @@ angular.module('kosherBaseApp', ['ui.bootstrap', 'btford.markdown'])
         templateUrl: 'template/milestonesList.html',
         link: function (scope, element, attrs) {
           function loadMilestones () {
-            gitlab.milestones(source.attributes.src.value).then(function (response) {
+            gitlab.milestones(attrs.src).then(function (response) {
               scope.milestones = JSON.parse(response.data);
             });
           }
