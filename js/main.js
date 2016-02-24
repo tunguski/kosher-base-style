@@ -168,20 +168,23 @@ angular.module('kosherBaseApp', ['ui.bootstrap', 'btford.markdown'])
     })
 
 
-    .directive('milestonesList', function($http, $filter, $sce, gitlab) {
+    .directive('milestonesList', function($http, $rootScope, $filter, $sce, gitlab) {
       return {
         restrict: 'E',
-        transclude: true,
-        scope: {},
-        templateUrl: 'template/milestonesList.html',
         link: function (scope, element, attrs) {
-          function loadMilestones () {
-            gitlab.milestones(attrs.src).then(function (response) {
-              scope.milestones = JSON.parse(response.data);
-            });
-          }
+          if (attrs.src) {       scope.src =       scope.$eval(attrs.src); }
+          if (attrs.labels) {    scope.labels =    scope.$eval(attrs.labels); }
+          if (attrs.status) {    scope.status =    scope.$eval(attrs.status); }
+          if (attrs.milestone) { scope.milestone = scope.$eval(attrs.milestone); }
 
-          loadMilestones();
+          scope.loadMilestones();
+        },
+        controller: function ($scope) {
+          $scope.loadMilestones = function () {
+            gitlab.milestones($scope.src).then(function (response) {
+              $scope.milestones = JSON.parse(response.data);
+            });
+          };
         }
       };
     })
@@ -191,14 +194,9 @@ angular.module('kosherBaseApp', ['ui.bootstrap', 'btford.markdown'])
       return {
         restrict: 'E',
         transclude: true,
-        scope: {},
         templateUrl: 'template/issuesList.html',
-        link: function (scope, element, attrs) {
-          var sources = element.find('source');
-          scope.columns = attrs.columns ? _.map(attrs.columns.split(','), _.trim)
-              : [ 'title', 'state', 'created_at', 'labels', 'author.name' ];
-
-          scope.columnDefinitions = {
+        controller: function ($scope) {
+          $scope.columnDefinitions = {
             id: {
               title: '',
               format: function (issue) {
@@ -233,46 +231,46 @@ angular.module('kosherBaseApp', ['ui.bootstrap', 'btford.markdown'])
             }
           };
 
-          scope.formatColumnData = function (columnName, issue) {
-            var data = scope.columnDefinitions[columnName] && scope.columnDefinitions[columnName].format
-                ? scope.columnDefinitions[columnName].format(issue)
+          $scope.formatColumnData = function (columnName, issue) {
+            var data = $scope.columnDefinitions[columnName] && $scope.columnDefinitions[columnName].format
+                ? $scope.columnDefinitions[columnName].format(issue)
                 : '' + Object.byString(issue, columnName);
 
             return $sce.trustAsHtml(data);
           };
 
-          scope.headerText = function (columnName) {
-            if (scope.columnDefinitions[columnName] && scope.columnDefinitions[columnName].title) {
-              return scope.columnDefinitions[columnName].title;
+          $scope.headerText = function (columnName) {
+            if ($scope.columnDefinitions[columnName] && $scope.columnDefinitions[columnName].title) {
+              return $scope.columnDefinitions[columnName].title;
             } else {
               return columnName;
             }
           };
 
-          scope.showFullIssue = function (issue) {
-            if (scope.selectedIssueData !== 'description' || scope.selectedIssue !== issue) {
-              scope.selectedIssue = issue;
-              scope.selectedIssueData = 'description';
+          $scope.showFullIssue = function (issue) {
+            if ($scope.selectedIssueData !== 'description' || $scope.selectedIssue !== issue) {
+              $scope.selectedIssue = issue;
+              $scope.selectedIssueData = 'description';
             } else {
-              scope.selectedIssueData = undefined;
+              $scope.selectedIssueData = undefined;
             }
           };
 
-          scope.showDiscussion = function (issue) {
-            if (scope.selectedIssueData !== 'notes' || scope.selectedIssue !== issue) {
-              scope.selectedIssue = issue;
-              scope.selectedIssueData = 'notes';
+          $scope.showDiscussion = function (issue) {
+            if ($scope.selectedIssueData !== 'notes' || $scope.selectedIssue !== issue) {
+              $scope.selectedIssue = issue;
+              $scope.selectedIssueData = 'notes';
 
               gitlab.issueNotes(issue.project_id, issue.id).then(function (response) {
                 var notes = JSON.parse(response.data);
                 issue.notes = notes;
               });
             } else {
-              scope.selectedIssueData = undefined;
+              $scope.selectedIssueData = undefined;
             }
           };
 
-          scope.issueRowStyle = function (issue) {
+          $scope.issueRowStyle = function (issue) {
             if (issue.state === 'closed') {
               return 'text-muted';
             }
@@ -280,25 +278,50 @@ angular.module('kosherBaseApp', ['ui.bootstrap', 'btford.markdown'])
             return '';
           };
 
-          scope.issues = [];
+          $scope.issues = [];
 
-          function loadIssues () {
-            angular.forEach(sources, function (source) {
-              $http.get('/gl/projects/' + source.attributes.src.value + '/issues?'
-                  + (source.attributes.labels ? 'labels=' + source.attributes.labels.value + '&' : '')
-                  + (source.attributes.status ? 'status=' + source.attributes.status.value + '&' : '')
-                  + (source.attributes.milestone ? '&milestone=' + source.attributes.milestone.value + '&' : '')
+          $scope.loadIssues = function () {
+            angular.forEach($scope.sources, function (source) {
+              function getAttrParam(attr) {
+                if (source[attr] || $scope[attr]) {
+                  return attr + '=' + (source[attr] ? source[attr] : $scope[attr]) + '&';
+                } else {
+                  return '';
+                }
+              }
+
+              $http.get('/gl/projects/' + (source.src ? source.src : $scope.src) + '/issues?'
+                  + getAttrParam('labels') + getAttrParam('status') + getAttrParam('milestone')
               ).then(function (response) {
                 angular.forEach(JSON.parse(response.data), function (issue) {
-                  scope.issues.push(issue);
+                  $scope.issues.push(issue);
                 });
 
-                scope.issues = $filter('orderBy')(scope.issues, 'state', true);
+                $scope.issues = $filter('orderBy')($scope.issues, 'state', true);
               });
             });
-          }
+          };
+        },
+        link: function (scope, element, attrs) {
+          scope.columns = attrs.columns ? _.map(attrs.columns.split(','), _.trim)
+              : [ 'title', 'state', 'created_at', 'labels', 'author.name' ];
 
-          loadIssues();
+          if (attrs.src) {       scope.src =       scope.$eval(attrs.src); }
+          if (attrs.labels) {    scope.labels =    scope.$eval(attrs.labels); }
+          if (attrs.status) {    scope.status =    scope.$eval(attrs.status); }
+          if (attrs.milestone) { scope.milestone = scope.$eval(attrs.milestone); }
+
+          scope.sources = [];
+          angular.forEach(element.find('source'), function (source) {
+            scope.sources.push({
+              src: source.attributes.src ? source.attributes.src.value : undefined,
+              labels: source.attributes.labels ? source.attributes.labels.value : undefined,
+              status: source.attributes.status ? source.attributes.status.value : undefined,
+              milestone: source.attributes.milestone ? source.attributes.milestone.value : undefined
+            })
+          });
+
+          scope.loadIssues();
         }
       };
     })

@@ -16,7 +16,7 @@
 <div class="container">
   <h1>Kosher Base Style Test Site</h1>
 
-  <h3>Issues</h3>
+  <h2>Issues</h2>
 
   <h3>Base</h3>
 
@@ -33,29 +33,32 @@
   <h3>Milestone</h3>
 
   <issues-list>
-    <source src="tunguski/kosher" milestone="1.0">
+    <source src="tunguski/kosher" milestone="0.1">
   </issues-list>
 
   <h3>Two sources</h3>
 
   <issues-list>
-    <source src="tunguski/kosher" label="feature">
-    <source src="tunguski/kosher" label="improvement">
+    <source src="tunguski/kosher" labels="feature">
+    <source src="tunguski/kosher" labels="improvement">
   </issues-list>
 
   <h3>Different projects</h3>
 
-  <issues-list label="feature">
+  <issues-list labels="'feature'">
     <source src="tunguski/kosher">
     <source src="tunguski/additional">
   </issues-list>
 
   <h2>Milestones</h2>
 
-  <milestones-list src="tunguski/kosher">
-    <issues-list>
-      <source src="tunguski/kosher" labels="feature">
-    </issues-list>
+  <milestones-list src="'tunguski/kosher'">
+    <div ng-repeat="_milestone in milestones">
+      <h3 ng-bind="_milestone.title"></h3>
+      <issues-list milestone="_milestone.title">
+        <source labels="feature">
+      </issues-list>
+    </div>
   </milestones-list>
 
 </div>
