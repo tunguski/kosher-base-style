@@ -172,10 +172,10 @@ angular.module('kosherBaseApp', ['ui.bootstrap', 'btford.markdown'])
       return {
         restrict: 'E',
         link: function (scope, element, attrs) {
-          if (attrs.src) {       scope.src =       scope.$eval(attrs.src); }
-          if (attrs.labels) {    scope.labels =    scope.$eval(attrs.labels); }
-          if (attrs.status) {    scope.status =    scope.$eval(attrs.status); }
-          if (attrs.milestone) { scope.milestone = scope.$eval(attrs.milestone); }
+          if (attrs.src) {       scope.src =       attrs.src; }
+          if (attrs.labels) {    scope.labels =    attrs.labels; }
+          if (attrs.status) {    scope.status =    attrs.status; }
+          if (attrs.milestone) { scope.milestone = attrs.milestone; }
 
           scope.loadMilestones();
         },
@@ -194,6 +194,12 @@ angular.module('kosherBaseApp', ['ui.bootstrap', 'btford.markdown'])
       return {
         restrict: 'E',
         transclude: true,
+        scope: {
+          src: '@',
+          labels: '@',
+          milestone: '@',
+          status: '@'
+        },
         templateUrl: 'template/issuesList.html',
         controller: function ($scope) {
           $scope.columnDefinitions = {
@@ -305,11 +311,6 @@ angular.module('kosherBaseApp', ['ui.bootstrap', 'btford.markdown'])
         link: function (scope, element, attrs) {
           scope.columns = attrs.columns ? _.map(attrs.columns.split(','), _.trim)
               : [ 'title', 'state', 'created_at', 'labels', 'author.name' ];
-
-          if (attrs.src) {       scope.src =       scope.$eval(attrs.src); }
-          if (attrs.labels) {    scope.labels =    scope.$eval(attrs.labels); }
-          if (attrs.status) {    scope.status =    scope.$eval(attrs.status); }
-          if (attrs.milestone) { scope.milestone = scope.$eval(attrs.milestone); }
 
           scope.sources = [];
           angular.forEach(element.find('source'), function (source) {

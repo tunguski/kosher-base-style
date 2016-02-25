@@ -52,10 +52,10 @@
 
   <h2>Milestones</h2>
 
-  <milestones-list src="'tunguski/kosher'">
-    <div ng-repeat="_milestone in milestones">
-      <h3 ng-bind="_milestone.title"></h3>
-      <issues-list milestone="_milestone.title">
+  <milestones-list src="tunguski/kosher">
+    <div ng-repeat="milestone in milestones">
+      <h3 ng-bind="milestone.title"></h3>
+      <issues-list milestone="{{ milestone.title }}" src="{{ src }}">
         <source labels="feature">
       </issues-list>
     </div>
