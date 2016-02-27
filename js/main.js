@@ -1,4 +1,9 @@
-angular.module('kosherBaseApp', ['ui.bootstrap', 'btford.markdown'])
+angular.module('kosherBaseApp', ['ui.bootstrap', 'ng-showdown', 'hljs'])
+
+
+    .config(function ($showdownProvider) {
+      $showdownProvider.setOption('tables', true);
+    })
 
 
     .controller('ContentCtrl', function($scope, $window, $http) {
@@ -184,7 +189,7 @@ angular.module('kosherBaseApp', ['ui.bootstrap', 'btford.markdown'])
     })
 
 
-    .directive('includeParts', function($http, $rootScope, $filter, $sce, gitlab) {
+    .directive('includeParts', function($http, $rootScope, $filter, $sce, gitlab, $compile) {
       return {
         restrict: 'E',
         scope: {
@@ -195,7 +200,7 @@ angular.module('kosherBaseApp', ['ui.bootstrap', 'btford.markdown'])
         link: function (scope, element, attrs) {
           scope.loadParts = function () {
             gitlab.listFiles(scope.src, scope.ref || 'master', scope.dir).then(function (response) {
-              scope.parts = JSON.parse(response.data);
+              scope.parts = _.sortBy(JSON.parse(response.data), ['name']);
 
               scope.partBodies = {};
               angular.forEach(scope.parts, function (part) {
@@ -205,9 +210,10 @@ angular.module('kosherBaseApp', ['ui.bootstrap', 'btford.markdown'])
 
                   element.append('<h4>' + part.name + '</h4>');
                   if (part.name.endsWith('.xml') || part.name.endsWith('.xsd')) {
-                    element.append('<pre>' + _.escape(scope.partBodies[part.name].decoded) + '</pre>');
+                    //scope.partBodies[part.name].decoded = _.escape(scope.partBodies[part.name].decoded);
+                    element.append($compile('<div hljs hljs-source="partBodies[\'' + part.name + '\'].decoded"></div>')(scope));
                   } else if (part.name.endsWith('.md')) {
-                    element.append('<p markdown-to-html="partBodies[' + part.name + '].decoded"></p>');
+                    element.append($compile('<p markdown-to-html="partBodies[\'' + part.name + '\'].decoded"></p>')(scope));
                   } else {
                     element.append('<p>' + scope.partBodies[part.name].decoded + '</p>');
                   }
