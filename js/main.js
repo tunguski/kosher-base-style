@@ -157,12 +157,66 @@ angular.module('kosherBaseApp', ['ui.bootstrap', 'btford.markdown'])
         milestone: function (project, id) {
           return $http.get('/gl/projects/' + project + '/milestones/' + id);
         },
-        issues: function (project, parameters) {
+        issues: function (project) {
           // add parameters to request url
           return $http.get('/gl/projects/' + project + '/issues/');
         },
         issueNotes: function (project, id) {
           return $http.get('/gl/projects/' + project + '/issues/' + issue.id + '/notes');
+        },
+        listFiles: function (project, ref_name, path) {
+          return $http.get('/gl/projects/' + project + '/repository/tree', {
+            params: {
+              path: path,
+              ref_name: ref_name
+            }
+          });
+        },
+        getFile: function (project, ref, file_path) {
+          return $http.get('/gl/projects/' + project + '/repository/files', {
+            params: {
+              ref: ref,
+              file_path: file_path
+            }
+          });
+        }
+      };
+    })
+
+
+    .directive('includeParts', function($http, $rootScope, $filter, $sce, gitlab) {
+      return {
+        restrict: 'E',
+        scope: {
+          src: '@',
+          dir: '@',
+          ref: '@'
+        },
+        link: function (scope, element, attrs) {
+          scope.loadParts = function () {
+            gitlab.listFiles(scope.src, scope.ref || 'master', scope.dir).then(function (response) {
+              scope.parts = JSON.parse(response.data);
+
+              scope.partBodies = {};
+              angular.forEach(scope.parts, function (part) {
+                gitlab.getFile(scope.src, scope.ref || 'master', scope.dir + '/' + part.name).then(function (response) {
+                  scope.partBodies[part.name] = JSON.parse(response.data);
+                  scope.partBodies[part.name].decoded = window.atob(scope.partBodies[part.name].content);
+
+                  element.append('<h4>' + part.name + '</h4>');
+                  if (part.name.endsWith('.xml') || part.name.endsWith('.xsd')) {
+                    element.append('<pre>' + _.escape(scope.partBodies[part.name].decoded) + '</pre>');
+                  } else if (part.name.endsWith('.md')) {
+                    element.append('<p markdown-to-html="partBodies[' + part.name + '].decoded"></p>');
+                  } else {
+                    element.append('<p>' + scope.partBodies[part.name].decoded + '</p>');
+                  }
+                });
+              });
+            });
+          };
+
+          scope.loadParts();
         }
       };
     })

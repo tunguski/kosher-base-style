@@ -14,73 +14,88 @@
 <body ng-controller="AppCtrl">
 
 <div class="container">
-  <h1>Kosher Base Style Test Site</h1>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="page-header">
+        <h1>Kosher Base Style Test Site</h1>
+      </div>
 
-  <h2>Issues</h2>
+      <h2>Documents Listing</h2>
 
-  <h3>Base</h3>
+      <include-parts src="tunguski/kosher" dir="src/site/dublincore"></include-parts>
 
-  <issues-list>
-    <source src="tunguski/kosher">
-  </issues-list>
+      <h2>Issues</h2>
 
-  <h3>Label</h3>
+      <h3>Base</h3>
 
-  <issues-list>
-    <source src="tunguski/kosher" labels="feature">
-  </issues-list>
-
-  <h3>Milestone</h3>
-
-  <issues-list>
-    <source src="tunguski/kosher" milestone="0.1">
-  </issues-list>
-
-  <h3>Two sources</h3>
-
-  <issues-list>
-    <source src="tunguski/kosher" labels="feature">
-    <source src="tunguski/kosher" labels="improvement">
-  </issues-list>
-
-  <h3>Different projects</h3>
-
-  <issues-list labels="'feature'">
-    <source src="tunguski/kosher">
-    <source src="tunguski/additional">
-  </issues-list>
-
-  <h2>Milestones</h2>
-
-  <milestones-list src="tunguski/kosher">
-    <div ng-repeat="milestone in milestones">
-      <h3 ng-bind="milestone.title"></h3>
-      <issues-list milestone="{{ milestone.title }}" src="{{ src }}">
-        <source labels="feature">
+      <issues-list>
+        <source src="tunguski/kosher">
       </issues-list>
-    </div>
-  </milestones-list>
 
+      <h3>Label</h3>
+
+      <issues-list>
+        <source src="tunguski/kosher" labels="feature">
+      </issues-list>
+
+      <h3>Milestone</h3>
+
+      <issues-list>
+        <source src="tunguski/kosher" milestone="0.1">
+      </issues-list>
+
+      <h3>Two sources</h3>
+
+      <issues-list>
+        <source src="tunguski/kosher" labels="feature">
+        <source src="tunguski/kosher" labels="improvement">
+      </issues-list>
+
+      <h3>Different projects</h3>
+
+      <issues-list labels="'feature'">
+        <source src="tunguski/kosher">
+        <source src="tunguski/additional">
+      </issues-list>
+
+      <h2>Milestones</h2>
+
+      <milestones-list src="tunguski/kosher">
+        <div ng-repeat="milestone in milestones">
+          <h3 ng-bind="milestone.title"></h3>
+          <issues-list milestone="{{ milestone.title }}" src="{{ src }}">
+            <source labels="feature">
+          </issues-list>
+        </div>
+      </milestones-list>
+    </div>
+  </div>
 </div>
 
 <!-- javascript -->
 
-<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.js"></script>
-<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/4.5.0/lodash.js"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/4.5.0/lodash.min.js"></script>
 <script type="text/javascript" src="//cdn.jsdelivr.net/highlight.js/9.1.0/highlight.min.js"></script>
 <script type="text/javascript" src="//cdn.jsdelivr.net/highlight.js/9.1.0/languages/1c.min.js"></script>
-<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.1/moment-with-locales.js"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.1/moment-with-locales.min.js"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/showdown/1.3.0/showdown.js"></script>
 
-<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.js"></script>
-<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular-sanitize.js"></script>
-<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/1.1.2/ui-bootstrap-tpls.js"></script>
-<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/showdown/0.5.1/showdown.js"></script>
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular-sanitize.min.js"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/1.1.2/ui-bootstrap-tpls.min.js"></script>
 <script type="text/javascript" src="//cdn.rawgit.com/btford/angular-markdown-directive/master/markdown.js"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/ng-showdown/1.1.0/ng-showdown.js"></script>
 
 <!-- custom -->
 <script type="text/javascript">
-  window.base_mustache = '';
-</script>
+  window.base_mustache = './';
+  window.base_gitlab = 'http://gitlab.matsuo.pl';
+  window.gitlab_project = {
+    user: 'tunguski',
+    project: 'Kosher',
+    full_name: 'tunguski/Kosher'
+  };</script>
 <script type="text/javascript" src="js/main.js"></script>
 <script type="text/javascript" src="js/custom.js"></script>
 
