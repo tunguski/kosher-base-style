@@ -345,3 +345,7 @@ issues ul .issue-author\.name {
   color: #777;
   font-size: 80%;
 }
+
+.list-group .list-group-item .alert:last-child {
+  margin-bottom: 0;
+}

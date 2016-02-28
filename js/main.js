@@ -363,26 +363,47 @@ angular.module('kosherBaseApp', ['ui.bootstrap', 'ng-showdown', 'hljs'])
             return '';
           };
 
-          scope.issues = [];
-
           scope.loadIssues = function () {
+            scope.issues = [];
+
+            scope.loading = 0;
+            scope.loadingErrors = [];
+
             angular.forEach(scope.sources, function (source) {
+              function getAttr(attr) {
+                return source[attr] ? source[attr] : scope[attr];
+              }
+
               function getAttrParam(attr) {
                 if (source[attr] || scope[attr]) {
-                  return attr + '=' + (source[attr] ? source[attr] : scope[attr]) + '&';
+                  return attr + '=' + getAttr(attr) + '&';
                 } else {
                   return '';
                 }
               }
 
-              $http.get('/gl/projects/' + (source.src ? source.src : scope.src) + '/issues?'
-                  + getAttrParam('labels') + getAttrParam('status') + getAttrParam('milestone')
-              ).then(function (response) {
+              var url = '/gl/projects/' + (source.src ? source.src : scope.src) + '/issues?'
+                  + getAttrParam('labels') + getAttrParam('status') + getAttrParam('milestone');
+              console.log(url);
+
+              scope.loading ++;
+              $http.get(url).then(function (response) {
+                scope.loading --;
+
                 angular.forEach(JSON.parse(response.data), function (issue) {
                   scope.issues.push(issue);
                 });
 
                 scope.issues = $filter('orderBy')(scope.issues, 'state', true);
+              }, function (response) {
+                scope.loading --;
+                scope.loadingErrors.push({
+                  src: source.src ? source.src : scope.src,
+                  labels: getAttr('labels'),
+                  status: getAttr('status'),
+                  milestone: getAttr('milestone'),
+                  response: response
+                });
               });
             });
           };

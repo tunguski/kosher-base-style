@@ -31,5 +31,21 @@
         </div>
       </td>
     </tr>
+    <tr ng-if="loading">
+      <td colspan="{{ columns.length + 1 }}" class="text-center">
+        <i class="fa fa-spinner fa-spin"></i>
+      </td>
+    </tr>
+    <tr ng-if="loadingErrors.length">
+      <td colspan="{{ columns.length + 1 }}">
+        <div class="alert alert-danger" ng-repeat="error in loadingErrors">
+          Error loading:
+          <strong ng-bind="error.src"></strong>
+          <span ng-if="error.labels">labels</span> <strong ng-bind="error.labels"></strong>
+          <span ng-if="error.status">status</span> <strong ng-bind="error.status"></strong>
+          <span ng-if="error.milestone">milestone</span> <strong ng-bind="error.milestone"></strong>
+        </div>
+      </td>
+    </tr>
   </tbody>
 </table>

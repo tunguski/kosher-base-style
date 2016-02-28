@@ -3,39 +3,16 @@
 <ul class="list-group">
   <li class="list-group-item" ng-repeat="issue in issues" ng-bind-html="formatData(issue)">
   </li>
+  <li class="list-group-item text-center" ng-if="loading">
+    <i class="fa fa-spinner fa-spin"></i>
+  </li>
+  <li class="list-group-item" ng-if="loadingErrors.length">
+    <div class="alert alert-danger" ng-repeat="error in loadingErrors">
+      Error loading:
+      <strong ng-bind="error.src"></strong>
+      <span ng-if="error.labels">labels</span> <strong ng-bind="error.labels"></strong>
+      <span ng-if="error.status">status</span> <strong ng-bind="error.status"></strong>
+      <span ng-if="error.milestone">milestone</span> <strong ng-bind="error.milestone"></strong>
+    </div>
+  </li>
 </ul>
-
-<!--<table class="table">-->
-  <!--<thead>-->
-    <!--<tr>-->
-      <!--<th ng-repeat="col in columns" ng-bind="headerText(col)"></th>-->
-      <!--<th>&lt;!&ndash; functions &ndash;&gt;</th>-->
-    <!--</tr>-->
-  <!--</thead>-->
-  <!--<tbody>-->
-    <!--<tr ng-repeat-start="issue in issues" ng-class="issueRowStyle(issue)">-->
-      <!--<td ng-repeat="col in columns" ng-bind-html="formatColumnData(col, issue)"></td>-->
-      <!--&lt;!&ndash;-->
-      <!--functions:-->
-        <!-- - show conversation-->
-        <!-- - show full body-->
-      <!--&ndash;&gt;-->
-      <!--<td>-->
-        <!--<a ng-click="showDiscussion(issue)"><i class="fa fa-comments-o"></i></a>-->
-        <!--<a ng-click="showFullIssue(issue)"><i class="fa fa-ellipsis-h"></i></a>-->
-      <!--</td>-->
-    <!--</tr>-->
-    <!--<tr ng-repeat-end ng-if="selectedIssueData && selectedIssue == issue">-->
-      <!--<td colspan="{{ columns.length + 1 }}">-->
-        <!--<div ng-if="selectedIssueData == 'description'" btf-markdown="issue.description"></div>-->
-        <!--<div ng-if="selectedIssueData == 'notes'">-->
-          <!--<ul class="list-group">-->
-            <!--<li ng-repeat="note in issue.notes" class="list-group-item">-->
-              <!--<span ng-bind="note.body"></span>-->
-            <!--</li>-->
-          <!--</ul>-->
-        <!--</div>-->
-      <!--</td>-->
-    <!--</tr>-->
-  <!--</tbody>-->
-<!--</table>-->
