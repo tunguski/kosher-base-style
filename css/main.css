@@ -325,3 +325,23 @@ li:not(.list-group-item):last-child {
 .go-to-edit {
   right: 250px;
 }
+
+
+
+issues ul span {
+  padding-right: 0.2em;
+}
+
+issues span a {
+  color: #333;
+}
+
+issues .text-muted span a {
+  color: #777;
+}
+
+issues ul .issue-created_at,
+issues ul .issue-author\.name {
+  color: #777;
+  font-size: 80%;
+}

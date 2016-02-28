@@ -189,7 +189,7 @@ angular.module('kosherBaseApp', ['ui.bootstrap', 'ng-showdown', 'hljs'])
     })
 
 
-    .directive('includeParts', function($http, $rootScope, $filter, $sce, gitlab, $compile) {
+    .directive('includeParts', function(gitlab, $compile) {
       return {
         restrict: 'E',
         scope: {
@@ -210,7 +210,6 @@ angular.module('kosherBaseApp', ['ui.bootstrap', 'ng-showdown', 'hljs'])
 
                   element.append('<h4>' + part.name + '</h4>');
                   if (part.name.endsWith('.xml') || part.name.endsWith('.xsd')) {
-                    //scope.partBodies[part.name].decoded = _.escape(scope.partBodies[part.name].decoded);
                     element.append($compile('<div hljs hljs-source="partBodies[\'' + part.name + '\'].decoded"></div>')(scope));
                   } else if (part.name.endsWith('.md')) {
                     element.append($compile('<p markdown-to-html="partBodies[\'' + part.name + '\'].decoded"></p>')(scope));
@@ -228,7 +227,7 @@ angular.module('kosherBaseApp', ['ui.bootstrap', 'ng-showdown', 'hljs'])
     })
 
 
-    .directive('milestonesList', function($http, $rootScope, $filter, $sce, gitlab) {
+    .directive('milestonesList', function(gitlab) {
       return {
         restrict: 'E',
         link: function (scope, element, attrs) {
@@ -250,7 +249,7 @@ angular.module('kosherBaseApp', ['ui.bootstrap', 'ng-showdown', 'hljs'])
     })
 
 
-    .directive('issuesList', function($http, $filter, $sce) {
+    .directive('issues', function($http, $filter, $sce) {
       return {
         restrict: 'E',
         transclude: true,
@@ -260,9 +259,15 @@ angular.module('kosherBaseApp', ['ui.bootstrap', 'ng-showdown', 'hljs'])
           milestone: '@',
           status: '@'
         },
-        templateUrl: 'template/issuesList.html',
-        controller: function ($scope) {
-          $scope.columnDefinitions = {
+        templateUrl: function (element, attr) {
+          if (attr.type) {
+            return 'template/issues' + _.upperFirst(attr.type) + '.html';
+          } else {
+            throw new Error('type not defined');
+          }
+        },
+        link: function (scope, element, attrs) {
+          scope.columnDefinitions = {
             id: {
               title: '',
               format: function (issue) {
@@ -271,7 +276,11 @@ angular.module('kosherBaseApp', ['ui.bootstrap', 'ng-showdown', 'hljs'])
               }
             },
             title: {
-              title: 'Opis'
+              title: 'Opis',
+              format: function (issue) {
+                return '<a href="' + window.base_gitlab + '/'
+                    + window.gitlab_project.full_name + '/issues/' + issue.iid + '">' + issue.title + '</a>';
+              }
             },
             state: {
               title: 'Status'
@@ -297,46 +306,56 @@ angular.module('kosherBaseApp', ['ui.bootstrap', 'ng-showdown', 'hljs'])
             }
           };
 
-          $scope.formatColumnData = function (columnName, issue) {
-            var data = $scope.columnDefinitions[columnName] && $scope.columnDefinitions[columnName].format
-                ? $scope.columnDefinitions[columnName].format(issue)
-                : '' + Object.byString(issue, columnName);
+          scope.formatData = function (issue) {
+            var result = '';
 
-            return $sce.trustAsHtml(data);
+            angular.forEach(scope.columns, function (columnName) {
+              result = result + ' ' + scope.formatColumnData(columnName, issue);
+            });
+
+            return $sce.trustAsHtml(result);
           };
 
-          $scope.headerText = function (columnName) {
-            if ($scope.columnDefinitions[columnName] && $scope.columnDefinitions[columnName].title) {
-              return $scope.columnDefinitions[columnName].title;
+          scope.formatColumnData = function (columnName, issue) {
+            var data = scope.columnDefinitions[columnName] && scope.columnDefinitions[columnName].format
+                ? scope.columnDefinitions[columnName].format(issue)
+                : '' + Object.byString(issue, columnName);
+
+            return $sce.trustAsHtml('<span class="issue-' + columnName + '">' + data + '</span>');
+          };
+
+          scope.headerText = function (columnName) {
+            if (scope.columnDefinitions[columnName] && scope.columnDefinitions[columnName].title) {
+              return scope.columnDefinitions[columnName].title;
             } else {
               return columnName;
             }
           };
 
-          $scope.showFullIssue = function (issue) {
-            if ($scope.selectedIssueData !== 'description' || $scope.selectedIssue !== issue) {
-              $scope.selectedIssue = issue;
-              $scope.selectedIssueData = 'description';
+          scope.showIssuePart = function (issue, type, fn) {
+            if (scope.selectedIssueData !== type || scope.selectedIssue !== issue) {
+              scope.selectedIssue = issue;
+              scope.selectedIssueData = type;
+              return fn ? fn() : undefined;
             } else {
-              $scope.selectedIssueData = undefined;
+              scope.selectedIssueData = undefined;
             }
           };
 
-          $scope.showDiscussion = function (issue) {
-            if ($scope.selectedIssueData !== 'notes' || $scope.selectedIssue !== issue) {
-              $scope.selectedIssue = issue;
-              $scope.selectedIssueData = 'notes';
+          scope.showFullIssue = function (issue) {
+            scope.showIssuePart(issue, 'description');
+          };
 
+          scope.showDiscussion = function (issue) {
+            scope.showIssuePart(issue, 'notes', function () {
               gitlab.issueNotes(issue.project_id, issue.id).then(function (response) {
                 var notes = JSON.parse(response.data);
                 issue.notes = notes;
               });
-            } else {
-              $scope.selectedIssueData = undefined;
-            }
+            });
           };
 
-          $scope.issueRowStyle = function (issue) {
+          scope.issueRowStyle = function (issue) {
             if (issue.state === 'closed') {
               return 'text-muted';
             }
@@ -344,33 +363,32 @@ angular.module('kosherBaseApp', ['ui.bootstrap', 'ng-showdown', 'hljs'])
             return '';
           };
 
-          $scope.issues = [];
+          scope.issues = [];
 
-          $scope.loadIssues = function () {
-            angular.forEach($scope.sources, function (source) {
+          scope.loadIssues = function () {
+            angular.forEach(scope.sources, function (source) {
               function getAttrParam(attr) {
-                if (source[attr] || $scope[attr]) {
-                  return attr + '=' + (source[attr] ? source[attr] : $scope[attr]) + '&';
+                if (source[attr] || scope[attr]) {
+                  return attr + '=' + (source[attr] ? source[attr] : scope[attr]) + '&';
                 } else {
                   return '';
                 }
               }
 
-              $http.get('/gl/projects/' + (source.src ? source.src : $scope.src) + '/issues?'
+              $http.get('/gl/projects/' + (source.src ? source.src : scope.src) + '/issues?'
                   + getAttrParam('labels') + getAttrParam('status') + getAttrParam('milestone')
               ).then(function (response) {
                 angular.forEach(JSON.parse(response.data), function (issue) {
-                  $scope.issues.push(issue);
+                  scope.issues.push(issue);
                 });
 
-                $scope.issues = $filter('orderBy')($scope.issues, 'state', true);
+                scope.issues = $filter('orderBy')(scope.issues, 'state', true);
               });
             });
           };
-        },
-        link: function (scope, element, attrs) {
           scope.columns = attrs.columns ? _.map(attrs.columns.split(','), _.trim)
-              : [ 'title', 'state', 'created_at', 'labels', 'author.name' ];
+              : (attrs.type === 'table' ? ['title', 'state', 'created_at', 'labels', 'author.name']
+              : ['title', 'labels', 'created_at', 'author.name']);
 
           scope.sources = [];
           angular.forEach(element.find('source'), function (source) {

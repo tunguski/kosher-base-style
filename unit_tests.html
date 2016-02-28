@@ -22,54 +22,54 @@
         <h1>Kosher Base Style Test Site</h1>
       </div>
 
-      <h2>Documents Listing</h2>
-
-      <include-parts src="tunguski/kosher" dir="src/site/dublincore"></include-parts>
-
       <h2>Issues</h2>
 
       <h3>Base</h3>
 
-      <issues-list>
+      <issues type="table">
         <source src="tunguski/kosher">
-      </issues-list>
+      </issues>
 
       <h3>Label</h3>
 
-      <issues-list>
+      <issues type="table">
         <source src="tunguski/kosher" labels="feature">
-      </issues-list>
+      </issues>
 
       <h3>Milestone</h3>
 
-      <issues-list>
+      <issues type="list">
         <source src="tunguski/kosher" milestone="0.1">
-      </issues-list>
+      </issues>
 
       <h3>Two sources</h3>
 
-      <issues-list>
+      <issues type="table">
         <source src="tunguski/kosher" labels="feature">
         <source src="tunguski/kosher" labels="improvement">
-      </issues-list>
+      </issues>
 
       <h3>Different projects</h3>
 
-      <issues-list labels="'feature'">
+      <issues type="list" labels="'feature'">
         <source src="tunguski/kosher">
         <source src="tunguski/additional">
-      </issues-list>
+      </issues>
 
       <h2>Milestones</h2>
 
       <milestones-list src="tunguski/kosher">
         <div ng-repeat="milestone in milestones">
           <h3 ng-bind="milestone.title"></h3>
-          <issues-list milestone="{{ milestone.title }}" src="{{ src }}">
+          <issues type="table" milestone="{{ milestone.title }}" src="{{ src }}">
             <source labels="feature">
-          </issues-list>
+          </issues>
         </div>
       </milestones-list>
+
+      <h2>Documents Listing</h2>
+
+      <include-parts src="tunguski/kosher" dir="src/site/dublincore"></include-parts>
     </div>
   </div>
 </div>
