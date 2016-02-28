@@ -233,7 +233,7 @@ angular.module('kosherBaseApp', ['ui.bootstrap', 'ng-showdown', 'hljs'])
         link: function (scope, element, attrs) {
           if (attrs.src) {       scope.src =       attrs.src; }
           if (attrs.labels) {    scope.labels =    attrs.labels; }
-          if (attrs.status) {    scope.status =    attrs.status; }
+          if (attrs.state) {    scope.state =    attrs.state; }
           if (attrs.milestone) { scope.milestone = attrs.milestone; }
 
           scope.loadMilestones();
@@ -257,7 +257,7 @@ angular.module('kosherBaseApp', ['ui.bootstrap', 'ng-showdown', 'hljs'])
           src: '@',
           labels: '@',
           milestone: '@',
-          status: '@'
+          state: '@'
         },
         templateUrl: function (element, attr) {
           if (attr.type) {
@@ -383,7 +383,7 @@ angular.module('kosherBaseApp', ['ui.bootstrap', 'ng-showdown', 'hljs'])
               }
 
               var url = '/gl/projects/' + (source.src ? source.src : scope.src) + '/issues?'
-                  + getAttrParam('labels') + getAttrParam('status') + getAttrParam('milestone');
+                  + getAttrParam('labels') + getAttrParam('state') + getAttrParam('milestone');
               console.log(url);
 
               scope.loading ++;
@@ -400,7 +400,7 @@ angular.module('kosherBaseApp', ['ui.bootstrap', 'ng-showdown', 'hljs'])
                 scope.loadingErrors.push({
                   src: source.src ? source.src : scope.src,
                   labels: getAttr('labels'),
-                  status: getAttr('status'),
+                  state: getAttr('state'),
                   milestone: getAttr('milestone'),
                   response: response
                 });
@@ -416,7 +416,7 @@ angular.module('kosherBaseApp', ['ui.bootstrap', 'ng-showdown', 'hljs'])
             scope.sources.push({
               src: source.attributes.src ? source.attributes.src.value : undefined,
               labels: source.attributes.labels ? source.attributes.labels.value : undefined,
-              status: source.attributes.status ? source.attributes.status.value : undefined,
+              state: source.attributes.state ? source.attributes.state.value : undefined,
               milestone: source.attributes.milestone ? source.attributes.milestone.value : undefined
             })
           });
