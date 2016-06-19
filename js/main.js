@@ -167,7 +167,7 @@ angular.module('kosherBaseApp', ['ui.bootstrap', 'ng-showdown', 'hljs'])
           return $http.get('/gl/projects/' + project + '/issues/');
         },
         issueNotes: function (project, id) {
-          return $http.get('/gl/projects/' + project + '/issues/' + issue.id + '/notes');
+          return $http.get('/gl/projects/' + project + '/issues/' + id + '/notes');
         },
         listFiles: function (project, ref_name, path) {
           return $http.get('/gl/projects/' + project + '/repository/tree', {
