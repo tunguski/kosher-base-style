@@ -249,7 +249,7 @@ angular.module('kosherBaseApp', ['ui.bootstrap', 'ng-showdown', 'hljs'])
     })
 
 
-    .directive('issues', function($http, $filter, $sce) {
+    .directive('issues', function($http, $filter, $sce, gitlab) {
       return {
         restrict: 'E',
         transclude: true,
