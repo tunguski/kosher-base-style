@@ -227,7 +227,7 @@ angular.module('kosherBaseApp', ['ui.bootstrap', 'ng-showdown', 'hljs'])
     })
 
 
-    .directive('milestonesList', function(gitlab) {
+    .directive('milestones', function(gitlab) {
       return {
         restrict: 'E',
         link: function (scope, element, attrs) {
